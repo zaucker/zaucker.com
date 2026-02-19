@@ -1,0 +1,67 @@
+baseURL = "https://zaucker.com/"
+title = "FeWo Zaucker"
+
+defaultContentLanguage = "de"
+defaultContentLanguageInSubdir = false
+
+enableRobotsTXT = true
+
+[imaging]
+  quality = 85
+  resampleFilter = "Lanczos"
+
+[taxonomies]
+
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = true
+
+[params]
+  ownerName = "Friedrich Zaucker"
+  ownerEmail = "fewo@zaucker.com"
+  ownerPhone = "+41 62 775 9903"
+  ownerMobile = "+41 79 675 0630"
+  address = "Werner-Haberland-Weg 51"
+  city = "D-88662 Überlingen"
+  country = "Deutschland"
+  postalAddress = "Fritz Zaucker, Platanen 42, CH-4600 Olten"
+  traumFwPropertyId = "67482"
+
+[languages]
+  [languages.de]
+    languageName = "Deutsch"
+    languageCode = "de"
+    weight = 1
+    title = "FeWo Zaucker"
+    contentDir = "content/de"
+    [languages.de.params]
+      subtitle = "Ferienwohnungen in Überlingen am Bodensee"
+      description = "Ferienwohnungen in Überlingen am Bodensee – ruhige Lage am Burgberg mit Blick auf Stadt, See und Alpen."
+
+  [languages.en]
+    languageName = "English"
+    languageCode = "en"
+    weight = 2
+    title = "Apt Zaucker"
+    contentDir = "content/en"
+    [languages.en.params]
+      subtitle = "Holiday apartments in Überlingen on Lake Constance"
+      description = "Holiday apartments in Überlingen on Lake Constance – quiet hillside location with panoramic views of the town, lake and Alps."
+
+[[languages.de.menus.footer]]
+  name = "Impressum"
+  pageRef = "/impressum"
+  weight = 10
+[[languages.de.menus.footer]]
+  name = "Datenschutz"
+  pageRef = "/datenschutz"
+  weight = 20
+
+[[languages.en.menus.footer]]
+  name = "Legal Notice"
+  url = "/impressum/"
+  weight = 10
+[[languages.en.menus.footer]]
+  name = "Privacy Policy"
+  url = "/datenschutz/"
+  weight = 20

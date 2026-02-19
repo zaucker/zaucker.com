@@ -1,0 +1,103 @@
+lang_switch: "Deutsch"
+
+# Section headings
+section_rooms: "Rooms"
+section_features: "Features & Amenities"
+section_kitchen: "Kitchen"
+section_bathroom: "Bathroom"
+section_living: "Living & Entertainment"
+section_family: "Family"
+section_service: "Service"
+section_pricing: "Pricing"
+section_bedrooms: "Bedrooms"
+section_availability: "Availability"
+
+# Apartment names
+apt_4zidg_name: "4-Room Penthouse"
+apt_3ziug_name: "3-Room Garden Apartment"
+apt_3zieg_name: "3-Room Ground Floor"
+
+# Seasons
+season_high: "High Season"
+season_high_desc: "July – August"
+season_mid: "Mid Season"
+season_mid_desc: "Christmas, New Year, Easter"
+season_low: "Low Season"
+season_low_desc: "remaining periods"
+
+# Pricing labels
+price_per_day: "per day"
+price_cleaning: "Cleaning fee"
+price_deposit: "Deposit"
+price_extra_guest: "Extra guest"
+price_linens: "Bed linen"
+price_city_tax: "City/tourist tax"
+price_per_person_day: "per person/day"
+booking_deposit_text: "€300 deposit on booking. Balance due 30 days before arrival."
+booking_min_stay: "Minimum stay"
+booking_nights: "nights"
+
+# Feature labels
+feat_stove: "Stove with oven"
+feat_fridge: "Refrigerator"
+feat_dishwasher: "Dishwasher"
+feat_microwave: "Microwave"
+feat_coffee_maker: "Coffee maker"
+feat_toaster: "Toaster"
+feat_kettle: "Kettle"
+feat_bathtub: "Bathtub"
+feat_shower: "Shower"
+feat_toilet: "Toilet"
+feat_hairdryer: "Hairdryer"
+feat_cable_tv: "Cable TV"
+feat_bluray: "Blu-Ray/DVD player"
+feat_wifi: "Wi-Fi (free)"
+feat_books_games: "Books, games, DVDs"
+feat_balcony_west: "Balcony (west facing)"
+feat_garden_terrace: "Covered garden terrace"
+feat_baby_equipment: "Baby equipment"
+feat_childrens_toys: "Children's toys"
+feat_linens_available: "Bed linen (small fee)"
+feat_towels_included: "Towels included"
+feat_washing_machine: "Washing machine (on request)"
+
+# Contact
+contact_phone: "Phone"
+contact_email: "Email"
+contact_address: "Address"
+contact_directions: "Directions"
+
+# Navigation
+nav_details: "Details"
+nav_all_photos: "All photos"
+nav_check_availability: "Check availability"
+nav_contact_us: "Contact us"
+nav_interested: "Interested?"
+nav_interested_text: "Get in touch or check availability directly."
+nav_our_apartments: "Our Apartments"
+nav_photos_count: "photos"
+nav_from: "from"
+nav_more_photos: "more photos"
+nav_back_to_top: "Back to top"
+nav_legal: "Legal"
+nav_navigation: "Navigation"
+
+# Homepage highlights
+highlight_view: "Lake & Alpine views"
+highlight_walk: "15 min. to old town"
+highlight_parking: "Parking at the door"
+highlight_quiet: "Quiet cul-de-sac"
+
+# Units
+unit_rooms: "rooms"
+unit_persons_max: "guests max."
+
+# Table headers
+table_season: "Season"
+
+# Gallery
+no_photos: "No photos available."
+
+# 404
+error_404_text: "This page could not be found."
+error_404_home: "Go to homepage"

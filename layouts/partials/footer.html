@@ -1,0 +1,51 @@
+<footer class="mt-16 bg-stone-900 text-stone-300">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+      {{/* Contact column */}}
+      <div>
+        <h3 class="text-white font-semibold mb-3">{{ i18n "contact_address" }}</h3>
+        <address class="not-italic text-sm space-y-1">
+          <p>{{ .Site.Params.ownerName }}</p>
+          <p>{{ .Site.Params.address }}</p>
+          <p>{{ .Site.Params.city }}</p>
+          <p>
+            <a href="tel:{{ .Site.Params.ownerPhone }}" class="hover:text-white transition-colors">
+              {{ .Site.Params.ownerPhone }}
+            </a>
+          </p>
+          <p>
+            <a href="mailto:{{ .Site.Params.ownerEmail }}" class="hover:text-white transition-colors">
+              {{ .Site.Params.ownerEmail }}
+            </a>
+          </p>
+        </address>
+      </div>
+
+      {{/* Quick links */}}
+      <div>
+        <h3 class="text-white font-semibold mb-3">{{ i18n "nav_navigation" }}</h3>
+        <ul class="text-sm space-y-1">
+          {{ range .Site.Menus.main }}
+          <li><a href="{{ .URL }}" class="hover:text-white transition-colors">{{ .Name }}</a></li>
+          {{ end }}
+        </ul>
+      </div>
+
+      {{/* Legal */}}
+      <div>
+        <h3 class="text-white font-semibold mb-3">{{ i18n "nav_legal" }}</h3>
+        <ul class="text-sm space-y-1">
+          {{ range .Site.Menus.footer }}
+          <li><a href="{{ .URL }}" class="hover:text-white transition-colors">{{ .Name }}</a></li>
+          {{ end }}
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="mt-8 pt-6 border-t border-stone-700 text-sm text-stone-500 text-center">
+      &copy; {{ now.Year }} {{ .Site.Params.ownerName }}
+    </div>
+  </div>
+</footer>

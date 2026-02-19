@@ -1,0 +1,61 @@
+id: "3-zi-eg"
+traumfw_id: ""
+hidden: true
+name_key: "apt_3zieg_name"
+
+specs:
+  rooms: 3
+  bedrooms: 2
+  max_guests: 6
+  area_m2: 80
+
+features:
+  kitchen:
+    - key: "stove"
+    - key: "fridge"
+    - key: "dishwasher"
+    - key: "microwave"
+    - key: "coffee_maker"
+    - key: "toaster"
+  bathroom:
+    - key: "bathtub"
+    - key: "shower"
+    - key: "hairdryer"
+  living:
+    - key: "cable_tv"
+    - key: "bluray"
+    - key: "wifi"
+    - key: "books_games"
+  family:
+    - key: "baby_equipment"
+    - key: "childrens_toys"
+  service:
+    - key: "towels_included"
+    - key: "linens_available"
+    - key: "washing_machine"
+
+pricing:
+  currency: "EUR"
+  extra_guest_per_day: 15
+  linen_per_bed: 15
+  cleaning_fee: 100
+  deposit: 300
+  seasons:
+    - name_key: "season_high"
+      rate_per_day: 130
+    - name_key: "season_mid"
+      rate_per_day: 110
+    - name_key: "season_low"
+      rate_per_day: 80
+
+minimum_stay:
+  - season_key: "season_high"
+    nights: 7
+  - season_key: "season_mid"
+    nights: 5
+  - season_key: "season_low"
+    nights: 3
+
+city_tax:
+  apr_oct_per_person_per_day: 4.45
+  nov_mar_per_person_per_day: 3.55

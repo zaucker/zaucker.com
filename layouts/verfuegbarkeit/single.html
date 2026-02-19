@@ -1,0 +1,44 @@
+{{ define "main" }}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+  <h1 class="text-4xl font-bold text-stone-900 mb-4">{{ .Title }}</h1>
+  <div class="prose prose-stone mb-8">{{ .Content }}</div>
+
+  {{/* Calendar widgets for each visible apartment */}}
+  {{ range where $.Site.RegularPages "Type" "apartment" }}
+    {{ if not .Params.hidden }}
+      {{ $aptID := .Params.apartment_id }}
+      {{ $aptData := index $.Site.Data.apartments $aptID }}
+      {{ if $aptData }}
+        {{ partial "availability-widget.html" (dict "apt_data" $aptData "ctx" $) }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+
+  {{/* Pricing comparison */}}
+  <section class="mt-16">
+    <h2 class="text-2xl font-semibold text-stone-900 mb-6">{{ i18n "section_pricing" }}</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {{ range where $.Site.RegularPages "Type" "apartment" }}
+        {{ if not .Params.hidden }}
+          {{ $aptID := .Params.apartment_id }}
+          {{ $aptData := index $.Site.Data.apartments $aptID }}
+          {{ if $aptData }}
+          <div>
+            <h3 class="text-lg font-semibold text-stone-800 mb-3">
+              <a href="{{ .RelPermalink }}" class="hover:text-lake">{{ .Title }}</a>
+            </h3>
+            {{ partial "pricing-table.html" (dict "apt" $aptData) }}
+          </div>
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    </div>
+  </section>
+
+</div>
+{{ end }}
+
+{{ define "scripts" }}
+<script src="//www.traum-ferienwohnungen.de/widgets/boot.js" async defer></script>
+{{ end }}

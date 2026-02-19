@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:zaucker.com)",
+      "Bash(curl:*)",
+      "Bash(hugo:*)",
+      "Bash(~/.local/bin/mise exec:*)",
+      "Bash(test:*)"
+    ]
+  }
+}

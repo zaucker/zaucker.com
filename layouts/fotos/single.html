@@ -1,0 +1,36 @@
+{{ define "main" }}
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+  <h1 class="text-4xl font-bold text-stone-900 mb-8">{{ .Title }}</h1>
+
+  {{/* One gallery section per visible apartment */}}
+  {{ range where .Site.RegularPages "Type" "apartment" }}
+    {{ if not .Params.hidden }}
+      {{ $aptPage := . }}
+      {{ $aptID := .Params.apartment_id }}
+      {{ $images := .Resources.Match "images/*.{jpg,jpeg,png,webp}" }}
+
+      <section class="mb-16" id="album-{{ $aptID }}">
+        <h2 class="text-2xl font-semibold text-stone-900 mb-6 flex items-center gap-3">
+          {{ $aptPage.Title }}
+          {{ if $images }}
+          <span class="text-base font-normal text-stone-400">({{ len $images }} {{ i18n "nav_photos_count" }})</span>
+          {{ end }}
+        </h2>
+        {{ partial "gallery-grid.html" (dict "images" $images "album" $aptID) }}
+      </section>
+    {{ end }}
+  {{ end }}
+
+</div>
+{{ end }}
+
+{{ define "scripts" }}
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+<script>
+  document.querySelectorAll('[data-album]').forEach(function(grid) {
+    var album = grid.dataset.album;
+    GLightbox({ selector: '[data-gallery="' + album + '"]', touchNavigation: true, loop: true });
+  });
+</script>
+{{ end }}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="{{ .Language.Lang }}" class="scroll-smooth">
+<head>
+  {{ partial "head.html" . }}
+</head>
+<body class="min-h-screen flex flex-col bg-white text-stone-800">
+
+  {{ partial "header.html" . }}
+
+  <main class="flex-1" id="main-content">
+    {{- block "main" . }}{{- end }}
+  </main>
+
+  {{ partial "footer.html" . }}
+
+  {{- block "scripts" . }}{{- end }}
+
+  <script>
+    // Mobile menu toggle
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    if (btn && menu) {
+      btn.addEventListener('click', () => {
+        menu.classList.toggle('hidden');
+        btn.setAttribute('aria-expanded', !menu.classList.contains('hidden'));
+      });
+    }
+  </script>
+</body>
+</html>

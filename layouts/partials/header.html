@@ -1,0 +1,54 @@
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-stone-100 shadow-sm">
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
+    <div class="flex items-center justify-between h-16">
+
+      {{/* Logo / Site name */}}
+      <a href="{{ .Site.Home.RelPermalink }}" class="flex items-center gap-2 font-semibold text-stone-900 hover:text-lake transition-colors">
+        <span class="text-lg">{{ .Site.Title }}</span>
+      </a>
+
+      {{/* Desktop navigation */}}
+      <div class="hidden md:flex items-center gap-1">
+        {{ range .Site.Menus.main }}
+        <a href="{{ .URL }}"
+           class="px-3 py-2 rounded-md text-sm font-medium transition-colors
+                  {{ if $.IsMenuCurrent "main" . }}text-lake bg-lake/10{{ else }}text-stone-700 hover:text-lake hover:bg-stone-50{{ end }}">
+          {{ .Name }}
+        </a>
+        {{ end }}
+
+        {{/* Language switcher */}}
+        {{ range .Translations }}
+        <a href="{{ .Permalink }}" hreflang="{{ .Language.Lang }}"
+           class="ml-3 px-3 py-1.5 rounded border border-stone-200 text-sm text-stone-600 hover:border-lake hover:text-lake transition-colors">
+          {{ i18n "lang_switch" }}
+        </a>
+        {{ end }}
+      </div>
+
+      {{/* Mobile menu toggle */}}
+      <button id="mobile-menu-btn" class="md:hidden p-2 rounded-md text-stone-600 hover:text-lake"
+              aria-expanded="false" aria-controls="mobile-menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+
+    {{/* Mobile menu */}}
+    <div id="mobile-menu" class="hidden md:hidden pb-3 border-t border-stone-100">
+      {{ range .Site.Menus.main }}
+      <a href="{{ .URL }}"
+         class="block px-3 py-2 text-sm font-medium text-stone-700 hover:text-lake hover:bg-stone-50 rounded-md">
+        {{ .Name }}
+      </a>
+      {{ end }}
+      {{ range $.Translations }}
+      <a href="{{ .Permalink }}" class="block px-3 py-2 text-sm text-stone-500">
+        {{ i18n "lang_switch" }}
+      </a>
+      {{ end }}
+    </div>
+
+  </nav>
+</header>

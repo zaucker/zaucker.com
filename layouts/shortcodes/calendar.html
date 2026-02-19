@@ -1,0 +1,17 @@
+{{/* Usage: {{< calendar id="67482" >}} */}}
+{{ $id := .Get "id" | default .Page.Site.Params.traumFwPropertyId }}
+<div class="tfw-widget rounded-xl border border-stone-200 overflow-hidden bg-white p-4 my-6"
+     data-listing="{{ $id }}"
+     data-type="calendar">
+</div>
+<script>
+  !function(d,s,id){
+    var js,fjs=d.getElementsByTagName(s)[0];
+    if(!d.getElementById(id)){
+      js=d.createElement(s);
+      js.id=id;
+      js.src="//www.traum-ferienwohnungen.de/widgets/boot.js";
+      fjs.parentNode.insertBefore(js,fjs);
+    }
+  }(document,"script","traumfewo-widget-js");
+</script>

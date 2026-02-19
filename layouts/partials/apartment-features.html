@@ -1,0 +1,58 @@
+{{/* Apartment features grid. Accepts dict with "apt" key (data file). */}}
+{{ $apt := .apt }}
+
+<section class="mt-10">
+  <h2 class="text-2xl font-semibold text-stone-900 mb-6">{{ i18n "section_features" }}</h2>
+
+  {{/* Key specs bar */}}
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8 p-4 bg-stone-50 rounded-xl">
+    <div class="text-center">
+      <div class="text-3xl font-bold text-lake">{{ $apt.specs.rooms }}</div>
+      <div class="text-sm text-stone-500">{{ i18n "unit_rooms" }}</div>
+    </div>
+    <div class="text-center">
+      <div class="text-3xl font-bold text-lake">{{ $apt.specs.bedrooms }}</div>
+      <div class="text-sm text-stone-500">{{ i18n "section_bedrooms" }}</div>
+    </div>
+    <div class="text-center">
+      <div class="text-3xl font-bold text-lake">{{ $apt.specs.max_guests }}</div>
+      <div class="text-sm text-stone-500">{{ i18n "unit_persons_max" }}</div>
+    </div>
+    {{ with $apt.specs.area_m2 }}
+    <div class="text-center">
+      <div class="text-3xl font-bold text-lake">{{ . }}</div>
+      <div class="text-sm text-stone-500">m&sup2;</div>
+    </div>
+    {{ end }}
+  </div>
+
+  {{/* Feature categories */}}
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {{ $categories := slice
+      (dict "key" "kitchen" "label_key" "section_kitchen")
+      (dict "key" "bathroom" "label_key" "section_bathroom")
+      (dict "key" "living" "label_key" "section_living")
+      (dict "key" "family" "label_key" "section_family")
+      (dict "key" "service" "label_key" "section_service")
+    }}
+    {{ range $categories }}
+      {{ $cat := .key }}
+      {{ $features := index $apt.features $cat }}
+      {{ if $features }}
+      <div class="border border-stone-200 rounded-xl p-5">
+        <h3 class="font-semibold text-stone-800 mb-3">{{ i18n .label_key }}</h3>
+        <ul class="space-y-1.5">
+          {{ range $features }}
+          <li class="flex items-center gap-2 text-sm text-stone-700">
+            <svg class="w-4 h-4 text-alpine flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+            </svg>
+            {{ i18n (printf "feat_%s" .key) }}
+          </li>
+          {{ end }}
+        </ul>
+      </div>
+      {{ end }}
+    {{ end }}
+  </div>
+</section>

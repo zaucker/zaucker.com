@@ -1,0 +1,24 @@
+{{/* Availability calendar widget. Accepts dict with "apt_data" and "ctx" (page). */}}
+{{ $apt := .apt_data }}
+{{ $ctx := .ctx }}
+
+{{ if $apt.traumfw_id }}
+<div class="mt-8">
+  <h3 class="text-xl font-semibold text-stone-900 mb-4">
+    {{ i18n $apt.name_key }} &ndash; {{ i18n "section_availability" }}
+  </h3>
+  <div class="rounded-xl border border-stone-200 overflow-hidden bg-white p-4">
+    <div class="tfw-widget"
+         data-listing="{{ $apt.traumfw_id }}"
+         data-type="calendar"
+         data-lang="{{ $ctx.Language.Lang }}">
+    </div>
+  </div>
+  <p class="mt-2 text-xs text-stone-400">
+    <a href="https://www.traum-ferienwohnungen.de/{{ $apt.traumfw_id }}.htm"
+       class="underline hover:text-lake" target="_blank" rel="noopener">
+      traum-ferienwohnungen.de
+    </a>
+  </p>
+</div>
+{{ end }}

@@ -1,0 +1,70 @@
+{{ define "main" }}
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+  {{/* Hero section */}}
+  <section class="py-20 text-center">
+    <h1 class="text-5xl sm:text-6xl font-bold text-stone-900 mb-6 leading-tight">
+      {{ .Site.Title }}
+    </h1>
+    <p class="text-xl text-stone-600 max-w-2xl mx-auto mb-8 leading-relaxed">
+      {{ .Site.Params.subtitle }}
+    </p>
+    <div class="flex flex-wrap gap-4 justify-center">
+      {{ range where .Site.RegularPages ".Params.translationKey" "availability" }}
+      <a href="{{ .RelPermalink }}"
+         class="px-8 py-4 rounded-xl bg-lake text-white text-lg font-semibold hover:bg-lake-dark transition-colors shadow-lg shadow-lake/30">
+        {{ i18n "nav_check_availability" }}
+      </a>
+      {{ end }}
+      <a href="#wohnungen"
+         class="px-8 py-4 rounded-xl border-2 border-stone-200 text-stone-700 text-lg font-medium hover:border-lake hover:text-lake transition-colors">
+        {{ i18n "nav_our_apartments" }}
+      </a>
+    </div>
+  </section>
+
+  {{/* Location highlights */}}
+  <section class="py-12 grid grid-cols-2 sm:grid-cols-4 gap-6 border-y border-stone-100">
+    <div class="text-center">
+      <div class="text-3xl mb-2">&#x1f3d4;&#xfe0f;</div>
+      <p class="text-sm text-stone-600 font-medium">{{ i18n "highlight_view" }}</p>
+    </div>
+    <div class="text-center">
+      <div class="text-3xl mb-2">&#x1f6b6;</div>
+      <p class="text-sm text-stone-600 font-medium">{{ i18n "highlight_walk" }}</p>
+    </div>
+    <div class="text-center">
+      <div class="text-3xl mb-2">&#x1f17f;&#xfe0f;</div>
+      <p class="text-sm text-stone-600 font-medium">{{ i18n "highlight_parking" }}</p>
+    </div>
+    <div class="text-center">
+      <div class="text-3xl mb-2">&#x1f33f;</div>
+      <p class="text-sm text-stone-600 font-medium">{{ i18n "highlight_quiet" }}</p>
+    </div>
+  </section>
+
+  {{/* Apartment cards */}}
+  <section id="wohnungen" class="py-16">
+    <h2 class="text-3xl font-bold text-stone-900 mb-10 text-center">{{ i18n "nav_our_apartments" }}</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {{ range where .Site.RegularPages "Type" "apartment" }}
+        {{ if not .Params.hidden }}
+          {{ $aptID := .Params.apartment_id }}
+          {{ $aptData := index $.Site.Data.apartments $aptID }}
+          {{ if $aptData }}
+            {{ partial "apartment-card.html" (dict "page" . "apt" $aptData) }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    </div>
+  </section>
+
+  {{/* Page body content */}}
+  {{ with .Content }}
+  <section class="py-12 max-w-3xl mx-auto text-stone-700 leading-relaxed">
+    {{ . }}
+  </section>
+  {{ end }}
+
+</div>
+{{ end }}

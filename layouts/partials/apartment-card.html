@@ -1,0 +1,68 @@
+{{/* Apartment summary card for homepage. Accepts dict with "page" and "apt" keys. */}}
+{{ $page := .page }}
+{{ $apt := .apt }}
+
+<article class="group rounded-2xl border border-stone-200 overflow-hidden hover:shadow-lg transition-shadow duration-300 bg-white">
+
+  {{/* Hero image placeholder */}}
+  {{ $images := $page.Resources.Match "images/*.{jpg,jpeg,png,webp}" }}
+  {{ if $images }}
+    {{ $hero := (index $images 0).Fill "800x500 q85 Lanczos" }}
+    <a href="{{ $page.RelPermalink }}" class="block overflow-hidden aspect-[8/5]">
+      <img src="{{ $hero.RelPermalink }}"
+           width="{{ $hero.Width }}" height="{{ $hero.Height }}"
+           alt="{{ $page.Title }}"
+           class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+    </a>
+  {{ else }}
+    <a href="{{ $page.RelPermalink }}" class="block aspect-[8/5] bg-stone-100 flex items-center justify-center">
+      <span class="text-stone-400 text-lg">{{ $page.Title }}</span>
+    </a>
+  {{ end }}
+
+  <div class="p-6">
+    {{/* Specs pills */}}
+    <div class="flex flex-wrap gap-2 mb-3">
+      <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-lake/10 text-lake">
+        {{ $apt.specs.rooms }} {{ i18n "unit_rooms" }}
+      </span>
+      <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-stone-100 text-stone-700">
+        {{ i18n "nav_from" }} {{ $apt.specs.max_guests }} {{ i18n "unit_persons_max" }}
+      </span>
+      {{ with $apt.specs.area_m2 }}
+      <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-stone-100 text-stone-700">
+        ca. {{ . }} m&sup2;
+      </span>
+      {{ end }}
+    </div>
+
+    <h2 class="text-xl font-semibold text-stone-900 mb-2">
+      <a href="{{ $page.RelPermalink }}" class="hover:text-lake transition-colors">
+        {{ $page.Title }}
+      </a>
+    </h2>
+
+    {{ with $page.Description }}
+    <p class="text-stone-600 text-sm mb-4 line-clamp-2">{{ . }}</p>
+    {{ end }}
+
+    {{/* Price range */}}
+    {{ $seasons := $apt.pricing.seasons }}
+    {{ $minRate := (index (last 1 $seasons) 0).rate_per_day }}
+    {{ $maxRate := (index $seasons 0).rate_per_day }}
+    <div class="flex items-center justify-between">
+      <div class="text-sm text-stone-500">
+        {{ i18n "nav_from" }}
+        <span class="text-lg font-bold text-stone-900">&euro;{{ $minRate }}</span>
+        &ndash; &euro;{{ $maxRate }} {{ i18n "price_per_day" }}
+      </div>
+      <a href="{{ $page.RelPermalink }}"
+         class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-lake text-white text-sm font-medium hover:bg-lake-dark transition-colors">
+        {{ i18n "nav_details" }}
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</article>

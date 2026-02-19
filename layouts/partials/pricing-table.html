@@ -1,0 +1,61 @@
+{{/* Pricing table. Accepts dict with "apt" key (data file). */}}
+{{ $apt := .apt }}
+
+<section class="mt-12">
+  <h2 class="text-2xl font-semibold text-stone-900 mb-6">{{ i18n "section_pricing" }}</h2>
+
+  {{/* Seasonal rates */}}
+  <div class="overflow-x-auto rounded-xl border border-stone-200">
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="bg-stone-50 border-b border-stone-200">
+          <th class="text-left px-4 py-3 font-semibold text-stone-700">{{ i18n "table_season" }}</th>
+          <th class="text-left px-4 py-3 font-semibold text-stone-700"></th>
+          <th class="text-right px-4 py-3 font-semibold text-stone-700">{{ i18n "price_per_day" }}</th>
+          <th class="text-right px-4 py-3 font-semibold text-stone-700">{{ i18n "booking_min_stay" }}</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-stone-100">
+        {{ range $i, $season := $apt.pricing.seasons }}
+        {{ $minStay := 0 }}
+        {{ range $apt.minimum_stay }}
+          {{ if eq .season_key $season.name_key }}
+            {{ $minStay = .nights }}
+          {{ end }}
+        {{ end }}
+        <tr class="{{ if eq (mod $i 2) 0 }}bg-white{{ else }}bg-stone-50/50{{ end }} hover:bg-lake/5 transition-colors">
+          <td class="px-4 py-3 font-medium text-stone-800">{{ i18n $season.name_key }}</td>
+          <td class="px-4 py-3 text-stone-600">{{ i18n (printf "%s_desc" $season.name_key) }}</td>
+          <td class="px-4 py-3 text-right font-semibold text-lake">&euro;{{ $season.rate_per_day }}</td>
+          <td class="px-4 py-3 text-right text-stone-600">{{ $minStay }} {{ i18n "booking_nights" }}</td>
+        </tr>
+        {{ end }}
+      </tbody>
+    </table>
+  </div>
+
+  {{/* Additional costs */}}
+  <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-4">
+    <div class="bg-stone-50 rounded-lg p-3 text-center">
+      <div class="text-xs text-stone-500 mb-1">{{ i18n "price_cleaning" }}</div>
+      <div class="font-semibold text-stone-800">&euro;{{ $apt.pricing.cleaning_fee }}</div>
+    </div>
+    <div class="bg-stone-50 rounded-lg p-3 text-center">
+      <div class="text-xs text-stone-500 mb-1">{{ i18n "price_deposit" }}</div>
+      <div class="font-semibold text-stone-800">&euro;{{ $apt.pricing.deposit }}</div>
+    </div>
+    <div class="bg-stone-50 rounded-lg p-3 text-center">
+      <div class="text-xs text-stone-500 mb-1">{{ i18n "price_extra_guest" }}</div>
+      <div class="font-semibold text-stone-800">&euro;{{ $apt.pricing.extra_guest_per_day }}/{{ i18n "price_per_day" }}</div>
+    </div>
+    <div class="bg-stone-50 rounded-lg p-3 text-center">
+      <div class="text-xs text-stone-500 mb-1">{{ i18n "price_city_tax" }}</div>
+      <div class="font-semibold text-stone-800">&euro;{{ $apt.city_tax.nov_mar_per_person_per_day }}&ndash;{{ $apt.city_tax.apr_oct_per_person_per_day }}</div>
+    </div>
+  </div>
+
+  {{/* Booking terms */}}
+  <p class="mt-4 text-sm text-stone-500 bg-amber-50 border border-amber-200 rounded-lg px-4 py-3">
+    {{ i18n "booking_deposit_text" }}
+  </p>
+</section>

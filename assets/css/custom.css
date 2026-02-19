@@ -1,0 +1,36 @@
+/* Gallery grid */
+.gallery-grid a {
+  display: block;
+  overflow: hidden;
+}
+
+.gallery-grid img {
+  transition: transform 0.3s ease;
+}
+
+.gallery-grid a:hover img {
+  transform: scale(1.05);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Mobile menu toggle */
+#mobile-menu.hidden {
+  display: none;
+}
+
+/* Calendar widget container */
+.tfw-widget {
+  min-height: 300px;
+}
+
+/* Line clamp utility for browsers without Tailwind */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
