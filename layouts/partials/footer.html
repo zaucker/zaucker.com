@@ -29,13 +29,10 @@
           {{ range .Site.Menus.footer }}
           <li><a href="{{ .URL }}" class="hover:text-white transition-colors">{{ .Name }}</a></li>
           {{ end }}
+          <li class="pt-2 text-stone-500">&copy; {{ now.Year }} {{ .Site.Params.ownerName }}</li>
         </ul>
       </div>
 
-    </div>
-
-    <div class="mt-8 pt-6 border-t border-stone-700 text-sm text-stone-500 text-center">
-      &copy; {{ now.Year }} {{ .Site.Params.ownerName }}
     </div>
   </div>
 </footer>

@@ -17,7 +17,7 @@ enableRobotsTXT = true
     unsafe = true
 
 [params]
-  ownerName = "Friedrich Zaucker"
+  ownerName = "Ferienwohnungen Zaucker"
   ownerEmail = "fewo@zaucker.com"
   ownerPhone = "+41 62 775 9903"
   ownerMobile = "+41 79 675 0630"
