@@ -16,7 +16,6 @@ export default defineConfig({
     '/4-zi-dg': '/dachgeschoss',
     '/3-zi-ug': '/gartenwohnung',
     '/3-zi-eg': '/erdgeschoss',
-    '/de': '/',
     '/de/': '/',
     '/en/4-zi-dg': '/en/penthouse',
     '/en/3-zi-ug': '/en/garden',
@@ -25,12 +24,11 @@ export default defineConfig({
   },
   integrations: [
     svelte(),
-    sitemap({
-      i18n: {
-        defaultLocale: 'de',
-        locales: { de: 'de-DE', en: 'en-US' },
-      },
-    }),
+    // Bare sitemap: per-page <head> hreflang (Head.astro) already provides
+    // complete, correct alternates for our localized slugs. The sitemap i18n
+    // option only auto-pairs identical paths, so it would emit partial,
+    // inconsistent alternates here.
+    sitemap(),
   ],
   vite: { plugins: [tailwindcss()] },
 });
