@@ -17,8 +17,4 @@ Reduced rates November–April for stays of 3 months or more.
 
 - Deposit: EUR 300 on booking
 - Balance: due 30 days before arrival
-- Holiday bookings require full prepayment
-
-### Cancellation
-
-Refund only if a replacement guest is found. Travel cancellation insurance recommended.
+- Refund only if a replacement guest is found. Travel cancellation insurance recommended.

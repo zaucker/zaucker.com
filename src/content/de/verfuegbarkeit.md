@@ -17,8 +17,4 @@ Reduzierte Tarife November–April für Mietdauer ab 3 Monaten.
 
 - Anzahlung: EUR 300 bei Buchung
 - Restzahlung: 30 Tage vor Anreise
-- Ferienbuchungen erfordern Vorauszahlung
-
-### Stornierung
-
-Rückerstattung nur bei Vermittlung eines Ersatzgastes. Reiserücktrittsversicherung empfohlen.
+- Rückerstattung nur bei Vermittlung eines Ersatzgastes. Reiserücktrittsversicherung empfohlen.
