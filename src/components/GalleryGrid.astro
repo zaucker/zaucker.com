@@ -14,7 +14,7 @@ const items = await Promise.all(images.map(async (img) => {
 }));
 ---
 {items.length > 0 ? (
-  <Lightbox client:visible items={items} />
+  <Lightbox client:visible items={items} moreLabel={t(locale, 'gallery_more')} lessLabel={t(locale, 'gallery_less')} />
 ) : (
   <p class="text-stone-400 italic">{t(locale, 'no_photos')}</p>
 )}

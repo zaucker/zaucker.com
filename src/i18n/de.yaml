@@ -97,6 +97,8 @@ table_season: "Saison"
 
 # Gallery
 no_photos: "Keine Fotos vorhanden."
+gallery_more: "Alle Fotos anzeigen"
+gallery_less: "Weniger anzeigen"
 
 # 404
 error_404_text: "Diese Seite wurde nicht gefunden."
