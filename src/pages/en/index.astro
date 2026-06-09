@@ -37,7 +37,7 @@ function aptMeta(apt: typeof apartments[number]) {
     <section id="wohnungen" class="py-16">
       <h2 class="text-3xl font-bold text-stone-900 mb-10 text-center">{t(locale, 'nav_our_apartments')}</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {apartments.map(apt => { const m = aptMeta(apt); return <ApartmentCard apt={apt} locale={locale} title={m.title} description={m.description} />; })}
+        {apartments.map(apt => { const m = aptMeta(apt); return <ApartmentCard apt={apt} locale={locale} title={m.title} />; })}
       </div>
     </section>
     <section class="py-12 max-w-3xl mx-auto text-stone-700 leading-relaxed prose"><Content /></section>
