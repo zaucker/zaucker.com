@@ -11,22 +11,17 @@ const locale: Locale = 'en';
 const page = await getEntry('pages', 'en/home');
 const { Content } = await render(page!);
 const apartments = getVisibleApartments();
-const subtitle = 'Holiday apartments in Überlingen on Lake Constance';
 const apartmentBodies = import.meta.glob('/src/content/en/apartments/*.md', { eager: true }) as Record<string, any>;
 function aptMeta(apt: typeof apartments[number]) {
   const mod = apartmentBodies[`/src/content/en/apartments/${apt.slug.en}.md`];
-  return { title: mod.frontmatter.title as string, description: mod.frontmatter.description as string };
+  return { title: mod.frontmatter.title as string };
 }
 ---
 <Layout locale={locale} title={page!.data.title} description={page!.data.description ?? ''} currentPath="/en/" altHref="/" isHome>
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <section class="py-20 text-center">
-      <h1 class="text-5xl sm:text-6xl font-bold text-stone-900 mb-6 leading-tight">Apt Zaucker</h1>
-      <p class="text-xl text-stone-600 max-w-2xl mx-auto mb-8 leading-relaxed">{subtitle}</p>
-      <div class="flex flex-wrap gap-4 justify-center">
-        <a href={pagePath(locale, 'availability')} class="px-8 py-4 rounded-xl bg-lake text-white text-lg font-semibold hover:bg-lake-dark transition-colors shadow-lg shadow-lake/30">{t(locale, 'nav_check_availability')}</a>
-        <a href="#wohnungen" class="px-8 py-4 rounded-xl border-2 border-stone-200 text-stone-700 text-lg font-medium hover:border-lake hover:text-lake transition-colors">{t(locale, 'nav_our_apartments')}</a>
-      </div>
+    <section class="py-20">
+      <h1 class="text-5xl sm:text-6xl font-bold text-stone-900 mb-8 leading-tight text-center">Apt Zaucker</h1>
+      <div class="prose max-w-3xl mx-auto leading-relaxed"><Content /></div>
     </section>
     <section class="py-12 grid grid-cols-2 sm:grid-cols-4 gap-6 border-y border-stone-100">
       <div class="text-center"><div class="text-3xl mb-2">🏔️</div><p class="text-sm text-stone-600 font-medium">{t(locale, 'highlight_view')}</p></div>
@@ -34,12 +29,13 @@ function aptMeta(apt: typeof apartments[number]) {
       <div class="text-center"><div class="text-3xl mb-2">🅿️</div><p class="text-sm text-stone-600 font-medium">{t(locale, 'highlight_parking')}</p></div>
       <div class="text-center"><div class="text-3xl mb-2">🌿</div><p class="text-sm text-stone-600 font-medium">{t(locale, 'highlight_quiet')}</p></div>
     </section>
-    <section id="wohnungen" class="py-16">
-      <h2 class="text-3xl font-bold text-stone-900 mb-10 text-center">{t(locale, 'nav_our_apartments')}</h2>
+    <section class="py-16">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         {apartments.map(apt => { const m = aptMeta(apt); return <ApartmentCard apt={apt} locale={locale} title={m.title} />; })}
       </div>
+      <div class="mt-10 text-center">
+        <a href={pagePath(locale, 'availability')} class="inline-block px-8 py-4 rounded-xl bg-lake text-white text-lg font-semibold hover:bg-lake-dark transition-colors shadow-lg shadow-lake/30">{t(locale, 'nav_check_availability')}</a>
+      </div>
     </section>
-    <section class="py-12 max-w-3xl mx-auto text-stone-700 leading-relaxed prose"><Content /></section>
   </div>
 </Layout>
