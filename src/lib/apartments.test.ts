@@ -22,6 +22,6 @@ describe('apartments data access', () => {
   });
   it('parses pricing seasons', () => {
     const dg = getApartment('4_zi_dg')!;
-    expect(dg.pricing.seasons[0]).toEqual({ name_key: 'season_high', rate_per_day: 150 });
+    expect(dg.pricing.seasons[0]).toEqual({ name_key: 'season_high', rate_per_day: 165 });
   });
 });

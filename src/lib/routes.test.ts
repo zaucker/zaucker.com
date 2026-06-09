@@ -16,7 +16,7 @@ describe('routes', () => {
   });
   it('builds an ordered nav including visible apartments', () => {
     const labels = getNav('de').map(i => i.label);
-    expect(labels).toEqual(['Home', '4 Zi DG', '3 Zi UG', 'Verfügbarkeit', 'Kontakt', 'Infos']);
+    expect(labels).toEqual(['Home', '4 Zi Dachwohnung', '3 Zi Gartenwohnung', 'Verfügbarkeit', 'Kontakt', 'Infos']);
     expect(getNav('de')[0].href).toBe('/');
     expect(getNav('de')[1].href).toBe('/dachwohnung');
   });

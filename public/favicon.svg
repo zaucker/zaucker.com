@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Ferienwohnungen Zaucker">
+  <defs>
+    <clipPath id="r"><rect width="64" height="64" rx="13"/></clipPath>
+  </defs>
+  <g clip-path="url(#r)">
+    <!-- sky / sand wash -->
+    <rect width="64" height="64" fill="#dcebf1"/>
+    <!-- sun -->
+    <circle cx="44" cy="20" r="9" fill="#e08a3c"/>
+    <!-- far alpine ridge -->
+    <path d="M-2 44 L16 24 L31 40 L44 22 L66 44 Z" fill="#2f8f5f"/>
+    <!-- near ridge -->
+    <path d="M-2 50 L20 32 L40 50 Z" fill="#155b7e"/>
+    <!-- lake -->
+    <rect y="44" width="64" height="20" fill="#1f7aa8"/>
+    <!-- shoreline glint -->
+    <rect y="44" width="64" height="2.5" fill="#dcebf1" opacity="0.55"/>
+  </g>
+</svg>

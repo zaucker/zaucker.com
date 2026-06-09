@@ -25,7 +25,7 @@ function aptMeta(apt: typeof apartments[number]) {
     <section class="pt-10 pb-14 lg:pt-14">
       <div class="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
         <div>
-          <h1 class="reveal font-display text-5xl sm:text-6xl font-semibold text-ink leading-[1.02] tracking-tight">Apt Zaucker</h1>
+          <h1 class="reveal font-display text-4xl sm:text-5xl font-semibold text-ink leading-[1.02] tracking-tight">Vacation Apartments Zaucker</h1>
           <ul class="mt-8 space-y-4">
             {intro.map((item, i) => (
               <li class="reveal flex items-start gap-4" style={`animation-delay:${140 + i * 90}ms`}>
@@ -36,8 +36,7 @@ function aptMeta(apt: typeof apartments[number]) {
           </ul>
         </div>
         <div class="reveal relative" style="animation-delay:80ms">
-          <div class="absolute -right-4 -bottom-4 w-full h-full rounded-3xl bg-sun/25 hidden sm:block"></div>
-          <Image src={introPhoto} alt="View from the Zaucker holiday apartments over Überlingen, Lake Constance and the Alps" widths={[480, 800, 1100]} sizes="(min-width: 1024px) 45vw, 100vw" class="relative rounded-3xl shadow-xl ring-1 ring-black/5 w-full aspect-[4/3] object-cover" />
+          <Image src={introPhoto} alt="View from the Zaucker holiday apartments over Überlingen, Lake Constance and the Alps" widths={[480, 800, 1100]} sizes="(min-width: 1024px) 45vw, 100vw" class="relative rounded-3xl ring-1 ring-black/5 w-full aspect-[4/3] object-cover" />
         </div>
       </div>
     </section>

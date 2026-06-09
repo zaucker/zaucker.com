@@ -1,11 +1,9 @@
 ---
 import type { Locale } from '@/lib/types';
-import { getNav, pagePath } from '@/lib/routes';
+import { getNav } from '@/lib/routes';
 interface Props { locale: Locale; currentPath: string; altHref: string | null; }
 const { locale, currentPath, altHref } = Astro.props;
 const nav = getNav(locale);
-const siteTitle = locale === 'de' ? 'FeWo Zaucker' : 'Apt Zaucker';
-const homeHref = pagePath(locale, 'home');
 const switchLabel = locale === 'de' ? 'English' : 'Deutsch';
 const otherLang = locale === 'de' ? 'en' : 'de';
 const menuLabel = locale === 'de' ? 'Menü öffnen' : 'Open menu';
@@ -15,9 +13,6 @@ const isActive = (href: string) => norm(currentPath) === norm(href);
 <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-stone-100 shadow-sm">
   <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
     <div class="flex items-center justify-between h-16">
-      <a href={homeHref} class="flex items-center gap-2 hover:opacity-80 transition-opacity">
-        <span class="font-display text-xl font-semibold text-lake tracking-tight">{siteTitle}</span>
-      </a>
       <div class="hidden md:flex items-center gap-1">
         {nav.map(item => (
           <a href={item.href}
@@ -25,14 +20,14 @@ const isActive = (href: string) => norm(currentPath) === norm(href);
             {item.label}
           </a>
         ))}
-        {altHref && (
-          <a href={altHref} hreflang={otherLang}
-             class="ml-3 px-3 py-1.5 rounded border border-stone-200 text-sm text-stone-600 hover:border-lake hover:text-lake transition-colors">
-            {switchLabel}
-          </a>
-        )}
       </div>
-      <button id="mobile-menu-btn" class="md:hidden p-2 rounded-md text-stone-600 hover:text-lake"
+      {altHref && (
+        <a href={altHref} hreflang={otherLang}
+           class="hidden md:inline-block px-3 py-1.5 rounded border border-stone-200 text-sm text-stone-600 hover:border-lake hover:text-lake transition-colors">
+          {switchLabel}
+        </a>
+      )}
+      <button id="mobile-menu-btn" class="md:hidden ml-auto p-2 rounded-md text-stone-600 hover:text-lake"
               aria-expanded="false" aria-controls="mobile-menu" aria-label={menuLabel}>
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
