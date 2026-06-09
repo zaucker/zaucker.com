@@ -5,11 +5,11 @@ import ApartmentCard from '@/components/ApartmentCard.astro';
 import { t } from '@/lib/i18n';
 import { getVisibleApartments } from '@/lib/apartments';
 import { pagePath } from '@/lib/routes';
-import { getEntry, render } from 'astro:content';
+import { getEntry } from 'astro:content';
 
 const locale: Locale = 'en';
 const page = await getEntry('pages', 'en/home');
-const { Content } = await render(page!);
+const intro = page!.data.intro ?? [];
 const apartments = getVisibleApartments();
 const apartmentBodies = import.meta.glob('/src/content/en/apartments/*.md', { eager: true }) as Record<string, any>;
 function aptMeta(apt: typeof apartments[number]) {
@@ -19,17 +19,18 @@ function aptMeta(apt: typeof apartments[number]) {
 ---
 <Layout locale={locale} title={page!.data.title} description={page!.data.description ?? ''} currentPath="/en/" altHref="/" isHome>
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <section class="py-20">
-      <h1 class="text-5xl sm:text-6xl font-bold text-stone-900 mb-8 leading-tight text-center">Apt Zaucker</h1>
-      <div class="prose max-w-3xl mx-auto leading-relaxed"><Content /></div>
-    </section>
-    <section class="py-12 grid grid-cols-2 sm:grid-cols-4 gap-6 border-y border-stone-100">
-      <div class="text-center"><div class="text-3xl mb-2">🏔️</div><p class="text-sm text-stone-600 font-medium">{t(locale, 'highlight_view')}</p></div>
-      <div class="text-center"><div class="text-3xl mb-2">🚶</div><p class="text-sm text-stone-600 font-medium">{t(locale, 'highlight_walk')}</p></div>
-      <div class="text-center"><div class="text-3xl mb-2">🅿️</div><p class="text-sm text-stone-600 font-medium">{t(locale, 'highlight_parking')}</p></div>
-      <div class="text-center"><div class="text-3xl mb-2">🌿</div><p class="text-sm text-stone-600 font-medium">{t(locale, 'highlight_quiet')}</p></div>
-    </section>
     <section class="py-16">
+      <h1 class="text-4xl font-bold text-stone-900 mb-8 leading-tight text-center">Apt Zaucker</h1>
+      <ul class="max-w-3xl mx-auto space-y-5">
+        {intro.map(item => (
+          <li class="flex items-start gap-4">
+            <span class="text-3xl flex-shrink-0 leading-none" aria-hidden="true">{item.icon}</span>
+            <p class="text-stone-600 leading-relaxed">{item.text}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+    <section class="py-16 border-t border-stone-100">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         {apartments.map(apt => { const m = aptMeta(apt); return <ApartmentCard apt={apt} locale={locale} title={m.title} />; })}
       </div>

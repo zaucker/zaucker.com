@@ -6,6 +6,8 @@ const pages = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string().optional(),
+    // Optional icon + text intro list (used on the homepage)
+    intro: z.array(z.object({ icon: z.string(), text: z.string() })).optional(),
   }),
 });
 
