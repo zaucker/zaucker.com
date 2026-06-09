@@ -1,21 +1,22 @@
-import { readdirSync, readFileSync } from 'node:fs';
-import { join } from 'node:path';
-import { fileURLToPath } from 'node:url';
 import yaml from 'js-yaml';
 import type { Apartment, Locale } from './types';
 
-const dir = fileURLToPath(new URL('../data/apartments/', import.meta.url));
+// Eager-import all apartment YAML files so Vite inlines them at build time.
+// This avoids fs.readdirSync path issues during Astro's prerender phase.
+const YAML_FILES = import.meta.glob<{ default: string }>(
+  '/src/data/apartments/*.yaml',
+  { eager: true, query: '?raw', import: 'default' },
+);
 
-const APARTMENTS: Apartment[] = readdirSync(dir)
-  .filter(f => f.endsWith('.yaml'))
-  .map(f => {
-    const parsed = yaml.load(readFileSync(join(dir, f), 'utf8'));
+const APARTMENTS: Apartment[] = Object.entries(YAML_FILES)
+  .map(([, raw]) => {
+    const parsed = yaml.load(raw as string);
     if (typeof parsed !== 'object' || parsed === null) {
-      throw new Error(`Invalid YAML in ${f}`);
+      throw new Error('Invalid YAML in apartment data');
     }
     const apt = parsed as Apartment;
     if (typeof apt.id !== 'string' || typeof apt.order !== 'number') {
-      throw new Error(`Apartment YAML ${f} is missing required fields id/order`);
+      throw new Error(`Apartment YAML is missing required fields id/order`);
     }
     return apt;
   })

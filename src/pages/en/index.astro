@@ -4,24 +4,24 @@ import Layout from '@/layouts/Layout.astro';
 import ApartmentCard from '@/components/ApartmentCard.astro';
 import { t } from '@/lib/i18n';
 import { getVisibleApartments } from '@/lib/apartments';
-import { pagePath, apartmentPath } from '@/lib/routes';
+import { pagePath } from '@/lib/routes';
 import { getEntry, render } from 'astro:content';
 
-const locale: Locale = 'de';
-const page = await getEntry('pages', 'de/home');
+const locale: Locale = 'en';
+const page = await getEntry('pages', 'en/home');
 const { Content } = await render(page!);
 const apartments = getVisibleApartments();
-const subtitle = 'Ferienwohnungen in Überlingen am Bodensee';
-const apartmentBodies = import.meta.glob('/src/content/de/apartments/*.md', { eager: true }) as Record<string, any>;
+const subtitle = 'Holiday apartments in Überlingen on Lake Constance';
+const apartmentBodies = import.meta.glob('/src/content/en/apartments/*.md', { eager: true }) as Record<string, any>;
 function aptMeta(apt: typeof apartments[number]) {
-  const mod = apartmentBodies[`/src/content/de/apartments/${apt.slug.de}.md`];
+  const mod = apartmentBodies[`/src/content/en/apartments/${apt.slug.en}.md`];
   return { title: mod.frontmatter.title as string, description: mod.frontmatter.description as string };
 }
 ---
-<Layout locale={locale} title={page!.data.title} description={page!.data.description ?? ''} currentPath="/" altHref="/en/" isHome>
+<Layout locale={locale} title={page!.data.title} description={page!.data.description ?? ''} currentPath="/en/" altHref="/" isHome>
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
     <section class="py-20 text-center">
-      <h1 class="text-5xl sm:text-6xl font-bold text-stone-900 mb-6 leading-tight">FeWo Zaucker</h1>
+      <h1 class="text-5xl sm:text-6xl font-bold text-stone-900 mb-6 leading-tight">Apt Zaucker</h1>
       <p class="text-xl text-stone-600 max-w-2xl mx-auto mb-8 leading-relaxed">{subtitle}</p>
       <div class="flex flex-wrap gap-4 justify-center">
         <a href={pagePath(locale, 'availability')} class="px-8 py-4 rounded-xl bg-lake text-white text-lg font-semibold hover:bg-lake-dark transition-colors shadow-lg shadow-lake/30">{t(locale, 'nav_check_availability')}</a>
