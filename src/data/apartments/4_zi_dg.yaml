@@ -49,7 +49,6 @@ features:
     - key: "hairdryer"
   living:
     - key: "cable_tv"
-    - key: "bluray"
     - key: "wifi"
     - key: "books_games"
   family:
