@@ -18,9 +18,9 @@ apt_3zieg_name: "3-Zi Erdgeschoss"
 
 # Seasons
 season_high: "Hauptsaison"
-season_high_desc: "Juli – August"
+season_high_desc: "Juli – August, Weihnachten, Neujahr"
 season_mid: "Mittelsaison"
-season_mid_desc: "Weihnachten, Neujahr, Ostern"
+season_mid_desc: "April – Juni, September – Oktober"
 season_low: "Nebensaison"
 season_low_desc: "restliche Zeit"
 

@@ -18,9 +18,9 @@ apt_3zieg_name: "3-Room Ground Floor"
 
 # Seasons
 season_high: "High Season"
-season_high_desc: "July – August"
+season_high_desc: "July – August, Christmas, New Year"
 season_mid: "Mid Season"
-season_mid_desc: "Christmas, New Year, Easter"
+season_mid_desc: "April – June, September – October"
 season_low: "Low Season"
 season_low_desc: "remaining periods"
 
