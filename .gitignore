@@ -13,3 +13,6 @@ zaucker.tar.gz
 
 # playwright mcp screenshots/logs
 .playwright-mcp/
+
+# loose source photo scratch folder (not used by the build)
+images/
