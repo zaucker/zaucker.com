@@ -1,0 +1,26 @@
+---
+import type { Apartment, Locale } from '@/lib/types';
+import { t } from '@/lib/i18n';
+interface Props { apt: Apartment; locale: Locale; }
+const { apt, locale } = Astro.props;
+---
+{apt.traumfw_id && (
+  <div class="mt-8">
+    <h3 class="text-xl font-semibold text-stone-900 mb-4">
+      {t(locale, apt.name_key)} – {t(locale, 'section_availability')}
+    </h3>
+    <div class="rounded-xl border border-stone-200 overflow-hidden bg-white p-4">
+      <a class="traumfewo-calendar"
+         href={`https://www.traum-ferienwohnungen.de/${apt.traumfw_id}.htm#kalender`}
+         title={t(locale, apt.name_key)}
+         data-listing={apt.traumfw_id}
+         data-language={locale}
+         data-months="6"
+         data-color-free="45cf45"
+         data-color-booked="ed8e97"
+         data-columns="6">
+        <img style="display: none;" src="//static.traum-ferienwohnungen.de/images/widgets/logo.png" alt="Traum-Ferienwohnungen.de" width="200" />
+      </a>
+    </div>
+  </div>
+)}
