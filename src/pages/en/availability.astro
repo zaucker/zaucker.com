@@ -1,0 +1,38 @@
+---
+import type { Locale } from '@/lib/types';
+import Layout from '@/layouts/Layout.astro';
+import AvailabilityWidget from '@/components/AvailabilityWidget.astro';
+import PricingTable from '@/components/PricingTable.astro';
+import { t } from '@/lib/i18n';
+import { getVisibleApartments } from '@/lib/apartments';
+import { apartmentPath } from '@/lib/routes';
+import { getEntry, render } from 'astro:content';
+
+const locale: Locale = 'en';
+const page = await getEntry('pages', 'en/availability');
+const { Content } = await render(page!);
+const apartments = getVisibleApartments();
+const apartmentBodies = import.meta.glob('/src/content/en/apartments/*.md', { eager: true }) as Record<string, any>;
+const titleOf = (apt: typeof apartments[number]) => apartmentBodies[`/src/content/en/apartments/${apt.slug.en}.md`].frontmatter.title as string;
+---
+<Layout locale={locale} title={page!.data.title} description={page!.data.description ?? ''} currentPath="/en/availability" altHref="/verfuegbarkeit">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <h1 class="text-4xl font-bold text-stone-900 mb-4">{page!.data.title}</h1>
+    <div class="prose prose-stone mb-8"><Content /></div>
+    {apartments.map(apt => <AvailabilityWidget apt={apt} locale={locale} />)}
+    <section class="mt-16">
+      <h2 class="text-2xl font-semibold text-stone-900 mb-6">{t(locale, 'section_pricing')}</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {apartments.map(apt => (
+          <div>
+            <h3 class="text-lg font-semibold text-stone-800 mb-3"><a href={apartmentPath(locale, apt)} class="hover:text-lake">{titleOf(apt)}</a></h3>
+            <PricingTable apt={apt} locale={locale} />
+          </div>
+        ))}
+      </div>
+    </section>
+  </div>
+  <script is:inline>
+    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//www.traum-ferienwohnungen.de/widgets/boot.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","traumfewo-widget-js");
+  </script>
+</Layout>
