@@ -5,7 +5,7 @@ description: "Kontaktieren Sie uns für Buchungsanfragen."
 
 **Fritz Zaucker**
 
-**Telefon:** +41 62 775 9903
+**Telefon:** +41 79 675 06 30
 
 **E-Mail:** [fewo@zaucker.com](mailto:fewo@zaucker.com)
 

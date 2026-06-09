@@ -5,7 +5,7 @@ description: "Contact us for booking enquiries."
 
 **Fritz Zaucker**
 
-**Phone:** +41 62 775 9903
+**Phone:** +41 79 675 06 30
 
 **Email:** [fewo@zaucker.com](mailto:fewo@zaucker.com)
 
