@@ -19,7 +19,7 @@ function aptMeta(apt: typeof apartments[number]) {
 ---
 <Layout locale={locale} title={page!.data.title} description={page!.data.description ?? ''} currentPath="/en/" altHref="/" isHome>
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <section class="py-16">
+    <section class="pt-16 pb-8">
       <h1 class="text-4xl font-bold text-stone-900 mb-8 leading-tight text-center">Apt Zaucker</h1>
       <ul class="max-w-3xl mx-auto space-y-5">
         {intro.map(item => (
@@ -30,7 +30,7 @@ function aptMeta(apt: typeof apartments[number]) {
         ))}
       </ul>
     </section>
-    <section class="py-16 border-t border-stone-100">
+    <section class="pt-8 pb-16 border-t border-stone-100">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         {apartments.map(apt => { const m = aptMeta(apt); return <ApartmentCard apt={apt} locale={locale} title={m.title} />; })}
       </div>
