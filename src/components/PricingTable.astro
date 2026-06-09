@@ -33,7 +33,9 @@ const minStayFor = (seasonKey: string) =>
   <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-4">
     <div class="bg-stone-50 rounded-lg p-3 text-center"><div class="text-xs text-stone-500 mb-1">{t(locale, 'price_cleaning')}</div><div class="font-semibold text-stone-800">€{apt.pricing.cleaning_fee}</div></div>
     <div class="bg-stone-50 rounded-lg p-3 text-center"><div class="text-xs text-stone-500 mb-1">{t(locale, 'price_deposit')}</div><div class="font-semibold text-stone-800">€{apt.pricing.deposit}</div></div>
-    <div class="bg-stone-50 rounded-lg p-3 text-center"><div class="text-xs text-stone-500 mb-1">{t(locale, 'price_extra_guest')}</div><div class="font-semibold text-stone-800">€{apt.pricing.extra_guest_per_day}/{t(locale, 'price_per_day')}</div></div>
+    {apt.pricing.extra_guest_per_day != null && (
+      <div class="bg-stone-50 rounded-lg p-3 text-center"><div class="text-xs text-stone-500 mb-1">{t(locale, 'price_extra_guest')}</div><div class="font-semibold text-stone-800">€{apt.pricing.extra_guest_per_day}/{t(locale, 'price_per_day')}</div></div>
+    )}
     <div class="bg-stone-50 rounded-lg p-3 text-center"><div class="text-xs text-stone-500 mb-1">{t(locale, 'price_city_tax')}</div><div class="font-semibold text-stone-800">€{apt.city_tax.nov_mar_per_person_per_day}–{apt.city_tax.apr_oct_per_person_per_day}</div></div>
   </div>
   <p class="mt-4 text-sm text-stone-500 bg-amber-50 border border-amber-200 rounded-lg px-4 py-3">{t(locale, 'booking_deposit_text')}</p>

@@ -60,7 +60,6 @@ features:
 
 pricing:
   currency: "EUR"
-  extra_guest_per_day: 15
   linen_per_bed: 15
   cleaning_fee: 100
   deposit: 300

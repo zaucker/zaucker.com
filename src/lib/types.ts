@@ -13,7 +13,7 @@ export interface Apartment {
   specs: { rooms: number; bedrooms: number; max_guests: number; area_m2?: number };
   features: Record<string, { key: string }[]>;  // kitchen/bathroom/living/family/service
   pricing: {
-    currency: string; extra_guest_per_day: number; linen_per_bed: number;
+    currency: string; extra_guest_per_day?: number; linen_per_bed: number;
     cleaning_fee: number; deposit: number;
     seasons: { name_key: string; rate_per_day: number }[];
   };
