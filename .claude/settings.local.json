@@ -5,7 +5,13 @@
       "Bash(curl:*)",
       "Bash(hugo:*)",
       "Bash(~/.local/bin/mise exec:*)",
-      "Bash(test:*)"
+      "Bash(test:*)",
+      "Bash(git -C /home/zaucker/checkouts/zaucker.com status)",
+      "Bash(git -C /home/zaucker/checkouts/zaucker.com diff)",
+      "Bash(git -C /home/zaucker/checkouts/zaucker.com log --oneline -5)",
+      "Bash(git -C /home/zaucker/checkouts/zaucker.com add layouts/partials/availability-widget.html layouts/verfuegbarkeit/single.html)",
+      "WebFetch(domain:platanen.ch)",
+      "WebFetch(domain:www.platanen.ch)"
     ]
   }
 }

@@ -20,7 +20,10 @@ export default defineConfig({
     '/en/4-zi-dg': '/en/penthouse',
     '/en/3-zi-ug': '/en/garden',
     '/en/3-zi-eg': '/en/ground-floor',
-    '/en/fotos': '/en/photos',
+    // Photos page removed (redundant with per-apartment galleries) → send old
+    // photo URLs to the respective home page.
+    '/fotos': '/',
+    '/en/fotos': '/en/',
   },
   integrations: [
     svelte(),

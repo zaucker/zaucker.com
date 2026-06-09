@@ -16,7 +16,7 @@ describe('routes', () => {
   });
   it('builds an ordered nav including visible apartments', () => {
     const labels = getNav('de').map(i => i.label);
-    expect(labels).toEqual(['4 Zi DG', '3 Zi UG', 'Fotos', 'Verfügbarkeit', 'Kontakt', 'Infos']);
+    expect(labels).toEqual(['4 Zi DG', '3 Zi UG', 'Verfügbarkeit', 'Kontakt', 'Infos']);
     expect(getNav('de')[0].href).toBe('/dachgeschoss');
   });
   it('marks German-only legal pages with a null English route', () => {

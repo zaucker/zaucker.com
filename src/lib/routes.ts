@@ -3,14 +3,13 @@ import { getVisibleApartments } from './apartments';
 import { t } from './i18n';
 
 export type PageKey =
-  | 'home' | 'availability' | 'photos' | 'contact' | 'infos'
+  | 'home' | 'availability' | 'contact' | 'infos'
   | 'impressum' | 'datenschutz';
 
 /** Localized path for each static page. `en: null` = German-only page. */
 export const PAGE_ROUTES: Record<PageKey, { de: string; en: string | null }> = {
   home:        { de: '/',               en: '/en/' },
   availability:{ de: '/verfuegbarkeit', en: '/en/availability' },
-  photos:      { de: '/fotos',          en: '/en/photos' },
   contact:     { de: '/kontakt',        en: '/en/contact' },
   infos:       { de: '/infos',          en: '/en/infos' },
   impressum:   { de: '/impressum',      en: null },
@@ -29,7 +28,7 @@ export function apartmentPath(locale: Locale, apt: Apartment): string {
 
 export interface NavItem { label: string; href: string }
 
-/** Header nav: visible apartments first, then Photos, Availability, Contact, Infos. */
+/** Header nav: visible apartments first, then Availability, Contact, Infos. */
 export function getNav(locale: Locale): NavItem[] {
   const apts = getVisibleApartments().map(a => ({
     label: a.nav_label[locale],
@@ -37,7 +36,6 @@ export function getNav(locale: Locale): NavItem[] {
   }));
   return [
     ...apts,
-    { label: t(locale, 'nav_photos'),            href: pagePath(locale, 'photos') },
     { label: t(locale, 'nav_availability_short'), href: pagePath(locale, 'availability') },
     { label: t(locale, 'nav_contact_short'),      href: pagePath(locale, 'contact') },
     { label: t(locale, 'nav_infos'),              href: pagePath(locale, 'infos') },
