@@ -1,4 +1,5 @@
 import { readdirSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import yaml from 'js-yaml';
 import type { Apartment, Locale } from './types';
@@ -8,11 +9,15 @@ const dir = fileURLToPath(new URL('../data/apartments/', import.meta.url));
 const APARTMENTS: Apartment[] = readdirSync(dir)
   .filter(f => f.endsWith('.yaml'))
   .map(f => {
-    const parsed = yaml.load(readFileSync(dir + f, 'utf8'));
+    const parsed = yaml.load(readFileSync(join(dir, f), 'utf8'));
     if (typeof parsed !== 'object' || parsed === null) {
       throw new Error(`Invalid YAML in ${f}`);
     }
-    return parsed as Apartment;
+    const apt = parsed as Apartment;
+    if (typeof apt.id !== 'string' || typeof apt.order !== 'number') {
+      throw new Error(`Apartment YAML ${f} is missing required fields id/order`);
+    }
+    return apt;
   })
   .sort((a, b) => a.order - b.order);
 
