@@ -2,6 +2,8 @@
 import type { Locale } from '@/lib/types';
 import Layout from '@/layouts/Layout.astro';
 import ApartmentCard from '@/components/ApartmentCard.astro';
+import { Image } from 'astro:assets';
+import introPhoto from '../assets/home/intro.jpg';
 import { t } from '@/lib/i18n';
 import { getVisibleApartments } from '@/lib/apartments';
 import { pagePath } from '@/lib/routes';
@@ -10,6 +12,7 @@ import { getEntry } from 'astro:content';
 const locale: Locale = 'de';
 const page = await getEntry('pages', 'de/home');
 const intro = page!.data.intro ?? [];
+const accents = ['bg-lake/12 text-lake', 'bg-alpine/15 text-alpine', 'bg-sun/15 text-sun', 'bg-lake/12 text-lake'];
 const apartments = getVisibleApartments();
 const apartmentBodies = import.meta.glob('/src/content/de/apartments/*.md', { eager: true }) as Record<string, any>;
 function aptMeta(apt: typeof apartments[number]) {
@@ -19,16 +22,24 @@ function aptMeta(apt: typeof apartments[number]) {
 ---
 <Layout locale={locale} title={page!.data.title} description={page!.data.description ?? ''} currentPath="/" altHref="/en/" isHome>
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <section class="pt-16 pb-8">
-      <h1 class="text-4xl font-bold text-stone-900 mb-8 leading-tight text-center">Ferienwohnungen Zaucker</h1>
-      <ul class="max-w-3xl mx-auto space-y-5">
-        {intro.map(item => (
-          <li class="flex items-start gap-4">
-            <span class="text-3xl flex-shrink-0 leading-none" aria-hidden="true">{item.icon}</span>
-            <p class="text-stone-600 leading-relaxed">{item.text}</p>
-          </li>
-        ))}
-      </ul>
+    <section class="pt-10 pb-14 lg:pt-14">
+      <div class="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+        <div>
+          <h1 class="reveal font-display text-4xl sm:text-5xl font-semibold text-ink leading-[1.05] tracking-tight">Ferienwohnungen Zaucker</h1>
+          <ul class="mt-8 space-y-4">
+            {intro.map((item, i) => (
+              <li class="reveal flex items-start gap-4" style={`animation-delay:${140 + i * 90}ms`}>
+                <span class={`flex-shrink-0 grid place-items-center w-11 h-11 rounded-full text-xl ${accents[i % accents.length]}`} aria-hidden="true">{item.icon}</span>
+                <p class="text-stone-700 leading-relaxed pt-1.5">{item.text}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="reveal relative" style="animation-delay:80ms">
+          <div class="absolute -right-4 -bottom-4 w-full h-full rounded-3xl bg-lake/15 hidden sm:block"></div>
+          <Image src={introPhoto} alt="Blick von den Ferienwohnungen Zaucker auf Überlingen, den Bodensee und die Alpen" widths={[480, 800, 1100]} sizes="(min-width: 1024px) 45vw, 100vw" class="relative rounded-3xl shadow-xl ring-1 ring-black/5 w-full aspect-[4/3] object-cover" />
+        </div>
+      </div>
     </section>
     <section class="pt-8 pb-16">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">

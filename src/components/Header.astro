@@ -15,8 +15,8 @@ const isActive = (href: string) => norm(currentPath) === norm(href);
 <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-stone-100 shadow-sm">
   <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
     <div class="flex items-center justify-between h-16">
-      <a href={homeHref} class="flex items-center gap-2 font-semibold text-stone-900 hover:text-lake transition-colors">
-        <span class="text-lg">{siteTitle}</span>
+      <a href={homeHref} class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+        <span class="font-display text-xl font-semibold text-lake tracking-tight">{siteTitle}</span>
       </a>
       <div class="hidden md:flex items-center gap-1">
         {nav.map(item => (

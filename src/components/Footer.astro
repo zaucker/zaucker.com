@@ -17,11 +17,11 @@ const legal = [
   { label: locale === 'de' ? 'Datenschutz' : 'Privacy Policy', href: pagePath(locale, 'datenschutz') },
 ];
 ---
-<footer class="mt-10 bg-stone-900 text-stone-300">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+<footer class="mt-16 bg-lake-deep text-white/75">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       <div>
-        <h3 class="text-white font-semibold mb-3">{t(locale, 'contact_address')}</h3>
+        <h3 class="font-display text-white text-lg font-semibold mb-3">{t(locale, 'contact_address')}</h3>
         <address class="not-italic text-sm space-y-1">
           <p>{owner.name}</p>
           <p>{owner.address}</p>
@@ -31,10 +31,10 @@ const legal = [
         </address>
       </div>
       <div>
-        <h3 class="text-white font-semibold mb-3">{t(locale, 'nav_legal')}</h3>
+        <h3 class="font-display text-white text-lg font-semibold mb-3">{t(locale, 'nav_legal')}</h3>
         <ul class="text-sm space-y-1">
           {legal.map(l => <li><a href={l.href} class="hover:text-white transition-colors">{l.label}</a></li>)}
-          <li class="pt-2 text-stone-500">© {year} {owner.name}</li>
+          <li class="pt-3 text-white/45">© {year} {owner.name}</li>
         </ul>
       </div>
     </div>
