@@ -1,9 +1,11 @@
 ---
-title: "Verfügbarkeit & Preise"
-description: "Aktuelle Verfügbarkeit und Preise der Ferienwohnungen Zaucker in Überlingen."
+title: "Verfügbarkeit"
+description: "Aktuelle Verfügbarkeit der Ferienwohnungen Zaucker in Überlingen."
 ---
 
-Aktuelle Belegungskalender unserer Ferienwohnungen. Mindestaufenthalt und Preisdetails finden Sie unterhalb der Kalender.
+### Langzeitmiete Winter
+
+Reduzierte Tarife November–April für Mietdauer ab 3 Monaten.
 
 ### Mindestaufenthalt
 
@@ -20,7 +22,3 @@ Aktuelle Belegungskalender unserer Ferienwohnungen. Mindestaufenthalt und Preisd
 ### Stornierung
 
 Rückerstattung nur bei Vermittlung eines Ersatzgastes. Reiserücktrittsversicherung empfohlen.
-
-### Langzeitmiete Winter
-
-Reduzierte Tarife November–April für Mietdauer ab 3 Monaten.

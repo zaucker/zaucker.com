@@ -12,9 +12,9 @@ const apartments = getVisibleApartments();
 ---
 <Layout locale={locale} title={page!.data.title} description={page!.data.description ?? ''} currentPath="/en/availability" altHref="/verfuegbarkeit">
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <h1 class="text-4xl font-bold text-stone-900 mb-4">{page!.data.title}</h1>
-    <div class="prose prose-stone mb-8"><Content /></div>
+    <h1 class="text-4xl font-bold text-stone-900 mb-6">{page!.data.title}</h1>
     {apartments.map(apt => <AvailabilityWidget apt={apt} locale={locale} />)}
+    <div class="prose prose-stone mt-12"><Content /></div>
   </div>
   <script is:inline>
     !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//www.traum-ferienwohnungen.de/widgets/boot.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","traumfewo-widget-js");

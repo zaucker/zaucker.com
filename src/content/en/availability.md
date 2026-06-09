@@ -1,9 +1,11 @@
 ---
-title: "Availability & Prices"
-description: "Current availability and pricing for our holiday apartments in Überlingen."
+title: "Availability"
+description: "Current availability for our holiday apartments in Überlingen."
 ---
 
-Current occupancy calendars for our apartments. Minimum stay and pricing details can be found below the calendars.
+### Long-term Winter Rental
+
+Reduced rates November–April for stays of 3 months or more.
 
 ### Minimum Stay
 
@@ -20,7 +22,3 @@ Current occupancy calendars for our apartments. Minimum stay and pricing details
 ### Cancellation
 
 Refund only if a replacement guest is found. Travel cancellation insurance recommended.
-
-### Long-term Winter Rental
-
-Reduced rates November–April for stays of 3 months or more.
