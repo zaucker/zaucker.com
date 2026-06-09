@@ -60,15 +60,14 @@ features:
 
 pricing:
   currency: "EUR"
-  extra_guest_per_day: 15
   linen_per_bed: 15
   cleaning_fee: 130
   deposit: 300
   seasons:
     - name_key: "season_high"
-      rate_per_day: 150
+      rate_per_day: 165
     - name_key: "season_mid"
-      rate_per_day: 120
+      rate_per_day: 135
     - name_key: "season_low"
       rate_per_day: 100
 
