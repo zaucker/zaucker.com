@@ -1,6 +1,7 @@
 ---
 import type { Locale } from '@/lib/types';
 import Layout from '@/layouts/Layout.astro';
+import ApartmentSpecs from '@/components/ApartmentSpecs.astro';
 import ApartmentFeatures from '@/components/ApartmentFeatures.astro';
 import PricingTable from '@/components/PricingTable.astro';
 import GalleryGrid from '@/components/GalleryGrid.astro';
@@ -28,6 +29,7 @@ const altHref = `/en/${apt.slug.en}`;
     </div>
     <h1 class="text-4xl font-bold text-stone-900 mb-4">{page!.data.title}</h1>
     {page!.data.description && <p class="text-xl text-stone-600 leading-relaxed mb-8">{page!.data.description}</p>}
+    <div class="mb-8"><ApartmentSpecs apt={apt} locale={locale} /></div>
     {images.length > 0 && (
       <div class="mb-10"><GalleryGrid images={images} alt={page!.data.title} locale={locale} /></div>
     )}
