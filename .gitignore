@@ -4,7 +4,6 @@ dist/
 node_modules/
 
 # legacy hugo (kept until Task 18 removes the files)
-public/
 resources/
 .hugo_build.lock
 
