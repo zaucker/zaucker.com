@@ -13,9 +13,9 @@ interface Props {
 }
 const { locale, title, description, currentPath, altHref, isHome = false } = Astro.props;
 const origin = 'https://zaucker.com';
-const canonical = origin + currentPath;
+const canonical = new URL(currentPath, origin).href;
 const alternates = altHref
-  ? [{ lang: locale, href: canonical }, { lang: (locale === 'de' ? 'en' : 'de') as Locale, href: origin + altHref }]
+  ? [{ lang: locale, href: canonical }, { lang: (locale === 'de' ? 'en' : 'de') as Locale, href: new URL(altHref, origin).href }]
   : [];
 ---
 <!DOCTYPE html>
