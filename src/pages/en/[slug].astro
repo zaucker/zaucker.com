@@ -1,0 +1,46 @@
+---
+import type { Locale } from '@/lib/types';
+import Layout from '@/layouts/Layout.astro';
+import ApartmentFeatures from '@/components/ApartmentFeatures.astro';
+import PricingTable from '@/components/PricingTable.astro';
+import GalleryGrid from '@/components/GalleryGrid.astro';
+import { t } from '@/lib/i18n';
+import { getApartments } from '@/lib/apartments';
+import { apartmentImages } from '@/lib/images';
+import { pagePath } from '@/lib/routes';
+import { getEntry, render } from 'astro:content';
+
+export function getStaticPaths() {
+  return getApartments().map(apt => ({ params: { slug: apt.slug.en }, props: { apartmentId: apt.id } }));
+}
+const locale: Locale = 'en';
+const { apartmentId } = Astro.props;
+const apt = getApartments().find(a => a.id === apartmentId)!;
+const page = await getEntry('pages', `en/apartments/${apt.slug.en}`);
+const { Content } = await render(page!);
+const images = apartmentImages(apt.id);
+const altHref = `/${apt.slug.de}`;
+---
+<Layout locale={locale} title={page!.data.title} description={page!.data.description ?? ''} currentPath={`/en/${apt.slug.en}`} altHref={altHref}>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="flex items-center gap-2 text-sm text-stone-400 mb-4">
+      <a href={pagePath(locale, 'home')} class="hover:text-lake">Home</a><span>/</span><span>{page!.data.title}</span>
+    </div>
+    <h1 class="text-4xl font-bold text-stone-900 mb-4">{page!.data.title}</h1>
+    {page!.data.description && <p class="text-xl text-stone-600 leading-relaxed mb-8">{page!.data.description}</p>}
+    {images.length > 0 && (
+      <div class="mb-10"><GalleryGrid images={images} alt={page!.data.title} locale={locale} /></div>
+    )}
+    <div class="prose prose-stone max-w-none mb-8"><Content /></div>
+    <ApartmentFeatures apt={apt} locale={locale} />
+    <PricingTable apt={apt} locale={locale} />
+    <div class="mt-12 p-6 bg-lake/5 border border-lake/20 rounded-2xl text-center">
+      <h3 class="text-xl font-semibold text-stone-900 mb-2">{t(locale, 'nav_interested')}</h3>
+      <p class="text-stone-600 mb-4">{t(locale, 'nav_interested_text')}</p>
+      <div class="flex flex-wrap gap-3 justify-center">
+        <a href={pagePath(locale, 'availability')} class="px-6 py-3 rounded-lg bg-lake text-white font-medium hover:bg-lake-dark transition-colors">{t(locale, 'nav_check_availability')}</a>
+        <a href={pagePath(locale, 'contact')} class="px-6 py-3 rounded-lg border border-lake text-lake font-medium hover:bg-lake hover:text-white transition-colors">{t(locale, 'nav_contact_us')}</a>
+      </div>
+    </div>
+  </div>
+</Layout>
