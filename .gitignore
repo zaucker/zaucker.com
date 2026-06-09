@@ -10,3 +10,6 @@ resources/
 # misc
 *~
 zaucker.tar.gz
+
+# playwright mcp screenshots/logs
+.playwright-mcp/
