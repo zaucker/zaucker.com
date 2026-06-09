@@ -9,7 +9,8 @@ const seasons = apt.pricing.seasons;
 const minRate = seasons[seasons.length - 1].rate_per_day;
 const maxRate = seasons[0].rate_per_day;
 ---
-<article class="rounded-2xl border border-stone-200 hover:shadow-lg transition-shadow duration-300 bg-white">
+<article class="rounded-2xl border border-stone-200 overflow-hidden hover:shadow-xl hover:-translate-y-0.5 transition duration-300 bg-white">
+  <div class="h-1.5 bg-gradient-to-r from-lake via-sun to-alpine"></div>
   <div class="p-6">
     <div class="flex flex-wrap gap-2 mb-3">
       <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-stone-100 text-stone-700">{apt.specs.bedrooms} {t(locale, 'section_bedrooms')}</span>

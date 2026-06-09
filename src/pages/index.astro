@@ -22,10 +22,15 @@ function aptMeta(apt: typeof apartments[number]) {
 ---
 <Layout locale={locale} title={page!.data.title} description={page!.data.description ?? ''} currentPath="/" altHref="/en/" isHome>
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <section class="pt-10 pb-14 lg:pt-14">
+    <section class="relative pt-10 pb-14 lg:pt-14">
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+        <div class="absolute -top-32 -left-24 w-[30rem] h-[30rem] rounded-full bg-lake/20 blur-3xl"></div>
+        <div class="absolute top-20 -right-20 w-96 h-96 rounded-full bg-sun/20 blur-3xl"></div>
+        <div class="absolute -bottom-10 left-1/3 w-80 h-80 rounded-full bg-alpine/15 blur-3xl"></div>
+      </div>
       <div class="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
         <div>
-          <h1 class="reveal font-display text-4xl sm:text-5xl font-semibold text-ink leading-[1.05] tracking-tight">Ferienwohnungen Zaucker</h1>
+          <h1 class="reveal font-display text-5xl sm:text-6xl font-semibold text-ink leading-[1.02] tracking-tight">Ferienwohnungen Zaucker</h1>
           <ul class="mt-8 space-y-4">
             {intro.map((item, i) => (
               <li class="reveal flex items-start gap-4" style={`animation-delay:${140 + i * 90}ms`}>
@@ -36,7 +41,7 @@ function aptMeta(apt: typeof apartments[number]) {
           </ul>
         </div>
         <div class="reveal relative" style="animation-delay:80ms">
-          <div class="absolute -right-4 -bottom-4 w-full h-full rounded-3xl bg-lake/15 hidden sm:block"></div>
+          <div class="absolute -right-4 -bottom-4 w-full h-full rounded-3xl bg-sun/25 hidden sm:block"></div>
           <Image src={introPhoto} alt="Blick von den Ferienwohnungen Zaucker auf Überlingen, den Bodensee und die Alpen" widths={[480, 800, 1100]} sizes="(min-width: 1024px) 45vw, 100vw" class="relative rounded-3xl shadow-xl ring-1 ring-black/5 w-full aspect-[4/3] object-cover" />
         </div>
       </div>
@@ -46,7 +51,7 @@ function aptMeta(apt: typeof apartments[number]) {
         {apartments.map(apt => { const m = aptMeta(apt); return <ApartmentCard apt={apt} locale={locale} title={m.title} />; })}
       </div>
       <div class="mt-10 text-center">
-        <a href={pagePath(locale, 'availability')} class="inline-block px-8 py-4 rounded-xl bg-lake text-white text-lg font-semibold hover:bg-lake-dark transition-colors shadow-lg shadow-lake/30">{t(locale, 'nav_check_availability')}</a>
+        <a href={pagePath(locale, 'availability')} class="inline-block px-8 py-4 rounded-xl bg-sun text-white text-lg font-semibold hover:bg-sun-dark transition-colors shadow-lg shadow-sun/30">{t(locale, 'nav_check_availability')}</a>
       </div>
     </section>
   </div>
