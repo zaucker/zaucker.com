@@ -3,6 +3,9 @@ import type { Apartment, Locale } from '@/lib/types';
 import { t } from '@/lib/i18n';
 interface Props { apt: Apartment; locale: Locale; }
 const { apt, locale } = Astro.props;
+const fmtEuro = (n: number) => locale === 'de' ? n.toFixed(2).replace('.', ',') : n.toFixed(2);
+const taxWinter = locale === 'de' ? 'Nov–Mär' : 'Nov–Mar';
+const taxSummer = locale === 'de' ? 'Apr–Okt' : 'Apr–Oct';
 const minStayFor = (seasonKey: string) =>
   apt.minimum_stay.find(m => m.season_key === seasonKey)?.nights ?? 0;
 ---
@@ -36,7 +39,7 @@ const minStayFor = (seasonKey: string) =>
     {apt.pricing.extra_guest_per_day != null && (
       <div class="bg-stone-50 rounded-lg p-3 text-center"><div class="text-xs text-stone-500 mb-1">{t(locale, 'price_extra_guest')}</div><div class="font-semibold text-stone-800">€{apt.pricing.extra_guest_per_day}/{t(locale, 'price_per_day')}</div></div>
     )}
-    <div class="bg-stone-50 rounded-lg p-3 text-center"><div class="text-xs text-stone-500 mb-1">{t(locale, 'price_city_tax')}</div><div class="font-semibold text-stone-800">€{apt.city_tax.nov_mar_per_person_per_day}–{apt.city_tax.apr_oct_per_person_per_day}</div></div>
+    <div class="bg-stone-50 rounded-lg p-3 text-center"><div class="text-xs text-stone-500 mb-1">{t(locale, 'price_city_tax')}</div><div class="font-semibold text-stone-800 text-sm leading-snug">€{fmtEuro(apt.city_tax.nov_mar_per_person_per_day)} <span class="text-stone-500 font-normal">({taxWinter})</span><br />€{fmtEuro(apt.city_tax.apr_oct_per_person_per_day)} <span class="text-stone-500 font-normal">({taxSummer})</span></div></div>
   </div>
   <p class="mt-4 text-sm text-stone-500 bg-amber-50 border border-amber-200 rounded-lg px-4 py-3">{t(locale, 'booking_deposit_text')}</p>
 </section>
