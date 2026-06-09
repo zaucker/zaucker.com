@@ -1,17 +1,26 @@
 {
   "name": "zaucker.com",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "2.0.0",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
+  "dependencies": {
+    "astro": "^6.4.5",
+    "@astrojs/svelte": "^8.1.2",
+    "@astrojs/sitemap": "^3.7.3",
+    "svelte": "^5.56.3",
+    "sharp": "^0.34.5",
+    "js-yaml": "^4.1.0"
+  },
   "devDependencies": {
-    "@tailwindcss/cli": "^4.2.0",
-    "tailwindcss": "^4.2.0"
+    "@tailwindcss/vite": "^4.3.0",
+    "tailwindcss": "^4.3.0",
+    "@types/js-yaml": "^4.0.9",
+    "vitest": "^3.0.0"
   }
 }

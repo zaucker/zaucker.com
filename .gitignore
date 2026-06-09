@@ -1,4 +1,13 @@
+# build
+dist/
+.astro/
+node_modules/
+
+# legacy hugo (kept until Task 18 removes the files)
 public/
 resources/
-node_modules/
 .hugo_build.lock
+
+# misc
+*~
+zaucker.tar.gz
