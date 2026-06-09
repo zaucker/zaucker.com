@@ -9,8 +9,8 @@ Reduced rates November–April for stays of 3 months or more.
 
 ### Minimum Stay
 
-- **High season** (July–August): 7 days
-- **Mid season** (Christmas/New Year): 5 days
+- **High season**: 7 days
+- **Mid season**: 5 days
 - **Low season**: 3 days
 
 ### Payment Terms

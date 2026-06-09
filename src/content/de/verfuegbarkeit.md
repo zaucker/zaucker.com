@@ -9,8 +9,8 @@ Reduzierte Tarife November–April für Mietdauer ab 3 Monaten.
 
 ### Mindestaufenthalt
 
-- **Hauptsaison** (Juli–August): 7 Tage
-- **Mittelsaison** (Weihnachten/Neujahr): 5 Tage
+- **Hauptsaison**: 7 Tage
+- **Mittelsaison**: 5 Tage
 - **Nebensaison**: 3 Tage
 
 ### Zahlungsbedingungen
