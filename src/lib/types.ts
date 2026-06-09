@@ -9,6 +9,7 @@ export interface Apartment {
   order: number;              // sort order on listings
   slug: Record<Locale, string>;       // { de: "dachgeschoss", en: "penthouse" }
   nav_label: Record<Locale, string>;  // { de: "4 Zi DG", en: "3 bedroom" }
+  rooms?: Record<Locale, string[]>;    // localized room-layout descriptions (optional)
   specs: { rooms: number; bedrooms: number; max_guests: number; area_m2?: number };
   features: Record<string, { key: string }[]>;  // kitchen/bathroom/living/family/service
   pricing: {

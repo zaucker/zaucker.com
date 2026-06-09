@@ -10,6 +10,24 @@ nav_label:
   de: "4 Zi DG"
   en: "3 bedroom"
 
+rooms:
+  de:
+    - "Geräumiger Wohn-/Essbereich"
+    - "Ausgestattete, separate Küche mit Geschirrspüler"
+    - "Grosses Elternschlafzimmer (Doppelbett 1.80m)"
+    - "Zweites Schlafzimmer (2 Betten à 0.90m)"
+    - "Drittes Schlafzimmer (Einzelbett)"
+    - "Badezimmer mit Badewanne und Dusche"
+    - "Balkon auf der Westseite"
+  en:
+    - "Spacious living/dining area"
+    - "Fully equipped separate kitchen with dishwasher"
+    - "Large master bedroom (double bed 1.80m)"
+    - "Second bedroom (2 single beds, 0.90m each)"
+    - "Third bedroom (single bed)"
+    - "Bathroom with bathtub and shower"
+    - "West-facing balcony"
+
 specs:
   rooms: 4
   bedrooms: 3
