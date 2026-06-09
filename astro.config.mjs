@@ -24,11 +24,15 @@ export default defineConfig({
   },
   integrations: [
     svelte(),
-    // Bare sitemap: per-page <head> hreflang (Head.astro) already provides
-    // complete, correct alternates for our localized slugs. The sitemap i18n
-    // option only auto-pairs identical paths, so it would emit partial,
-    // inconsistent alternates here.
-    sitemap(),
+    // Per-page <head> hreflang (Head.astro) already provides complete, correct
+    // alternates for our localized slugs; the sitemap i18n option only auto-pairs
+    // identical paths, so it is intentionally left off. Hidden / "not available"
+    // apartments (erdgeschoss / ground-floor) are reachable by URL but excluded
+    // from the sitemap so search engines don't surface unavailable listings.
+    sitemap({
+      filter: (page) =>
+        !page.includes('/erdgeschoss') && !page.includes('/ground-floor'),
+    }),
   ],
   vite: { plugins: [tailwindcss()] },
 });
