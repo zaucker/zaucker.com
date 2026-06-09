@@ -52,7 +52,6 @@ features:
     - key: "bluray"
     - key: "wifi"
     - key: "books_games"
-    - key: "balcony_west"
   family:
     - key: "baby_equipment"
     - key: "childrens_toys"
