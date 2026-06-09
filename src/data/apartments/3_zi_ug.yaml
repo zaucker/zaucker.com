@@ -50,7 +50,6 @@ features:
     - key: "cable_tv"
     - key: "wifi"
     - key: "books_games"
-    - key: "garden_terrace"
   family:
     - key: "baby_equipment"
     - key: "childrens_toys"
