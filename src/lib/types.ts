@@ -7,7 +7,7 @@ export interface Apartment {
   hidden: boolean;
   name_key: string;           // i18n key, e.g. "apt_4zidg_name"
   order: number;              // sort order on listings
-  slug: Record<Locale, string>;       // { de: "dachgeschoss", en: "penthouse" }
+  slug: Record<Locale, string>;       // { de: "dachwohnung", en: "penthouse" }
   nav_label: Record<Locale, string>;  // { de: "4 Zi DG", en: "3 bedroom" }
   rooms?: Record<Locale, string[]>;    // localized room-layout descriptions (optional)
   specs: { rooms: number; bedrooms: number; max_guests: number; area_m2?: number };

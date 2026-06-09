@@ -11,13 +11,13 @@ describe('routes', () => {
   });
   it('resolves apartment paths by locale slug', () => {
     const dg = getApartment('4_zi_dg')!;
-    expect(apartmentPath('de', dg)).toBe('/dachgeschoss');
+    expect(apartmentPath('de', dg)).toBe('/dachwohnung');
     expect(apartmentPath('en', dg)).toBe('/en/penthouse');
   });
   it('builds an ordered nav including visible apartments', () => {
     const labels = getNav('de').map(i => i.label);
     expect(labels).toEqual(['4 Zi DG', '3 Zi UG', 'Verfügbarkeit', 'Kontakt', 'Infos']);
-    expect(getNav('de')[0].href).toBe('/dachgeschoss');
+    expect(getNav('de')[0].href).toBe('/dachwohnung');
   });
   it('marks German-only legal pages with a null English route', () => {
     expect(PAGE_ROUTES.impressum.en).toBeNull();

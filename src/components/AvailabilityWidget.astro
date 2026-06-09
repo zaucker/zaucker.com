@@ -7,7 +7,7 @@ const { apt, locale } = Astro.props;
 {apt.traumfw_id && (
   <div class="mt-8">
     <h3 class="text-xl font-semibold text-stone-900 mb-4">
-      {t(locale, apt.name_key)} – {t(locale, 'section_availability')}
+      {t(locale, apt.name_key)}
     </h3>
     <a class="traumfewo-calendar"
        href={`https://www.traum-ferienwohnungen.de/${apt.traumfw_id}.htm#kalender`}

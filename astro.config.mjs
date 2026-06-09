@@ -13,7 +13,7 @@ export default defineConfig({
     routing: { prefixDefaultLocale: false },
   },
   redirects: {
-    '/4-zi-dg': '/dachgeschoss',
+    '/4-zi-dg': '/dachwohnung',
     '/3-zi-ug': '/gartenwohnung',
     '/3-zi-eg': '/erdgeschoss',
     '/de/': '/',

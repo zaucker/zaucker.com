@@ -10,10 +10,9 @@ section_family: "Familie"
 section_service: "Service"
 section_pricing: "Preise"
 section_bedrooms: "Schlafzimmer"
-section_availability: "Verfügbarkeit"
 
 # Apartment names
-apt_4zidg_name: "4-Zi Dachgeschoss"
+apt_4zidg_name: "4-Zi Dachwohnung"
 apt_3ziug_name: "3-Zi Gartenwohnung"
 apt_3zieg_name: "3-Zi Erdgeschoss"
 
