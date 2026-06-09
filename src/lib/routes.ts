@@ -28,13 +28,14 @@ export function apartmentPath(locale: Locale, apt: Apartment): string {
 
 export interface NavItem { label: string; href: string }
 
-/** Header nav: visible apartments first, then Availability, Contact, Infos. */
+/** Header nav: Home, visible apartments, then Availability, Contact, Infos. */
 export function getNav(locale: Locale): NavItem[] {
   const apts = getVisibleApartments().map(a => ({
     label: a.nav_label[locale],
     href: apartmentPath(locale, a),
   }));
   return [
+    { label: 'Home', href: pagePath(locale, 'home') },
     ...apts,
     { label: t(locale, 'nav_availability_short'), href: pagePath(locale, 'availability') },
     { label: t(locale, 'nav_contact_short'),      href: pagePath(locale, 'contact') },
