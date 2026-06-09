@@ -55,7 +55,6 @@ features:
     - key: "childrens_toys"
   service:
     - key: "towels_included"
-    - key: "linens_available"
     - key: "washing_machine"
 
 pricing:
