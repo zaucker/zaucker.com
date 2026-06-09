@@ -3,8 +3,6 @@ title: "Kontakt"
 description: "Kontaktieren Sie uns für Buchungsanfragen."
 ---
 
-## Kontakt
-
 **Fritz Zaucker**
 
 **Telefon:** +41 62 775 9903

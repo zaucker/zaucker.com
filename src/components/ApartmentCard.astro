@@ -12,8 +12,8 @@ const maxRate = seasons[0].rate_per_day;
 <article class="rounded-2xl border border-stone-200 hover:shadow-lg transition-shadow duration-300 bg-white">
   <div class="p-6">
     <div class="flex flex-wrap gap-2 mb-3">
-      <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-lake/10 text-lake">{apt.specs.rooms} {t(locale, 'unit_rooms')}</span>
-      <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-stone-100 text-stone-700">{t(locale, 'nav_from')} {apt.specs.max_guests} {t(locale, 'unit_persons_max')}</span>
+      <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-stone-100 text-stone-700">{apt.specs.bedrooms} {t(locale, 'section_bedrooms')}</span>
+      <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-stone-100 text-stone-700">{t(locale, 'unit_up_to')} {apt.specs.max_guests} {t(locale, 'unit_persons')}</span>
       {apt.specs.area_m2 && <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-stone-100 text-stone-700">ca. {apt.specs.area_m2} m²</span>}
     </div>
     <h2 class="text-xl font-semibold text-stone-900 mb-4"><a href={href} class="hover:text-lake transition-colors">{title}</a></h2>

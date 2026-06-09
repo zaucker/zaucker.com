@@ -89,6 +89,8 @@ highlight_quiet: "Ruhige Sackgasse"
 # Units
 unit_rooms: "Zimmer"
 unit_persons_max: "Personen max."
+unit_up_to: "bis"
+unit_persons: "Personen"
 
 # Table headers
 table_season: "Saison"

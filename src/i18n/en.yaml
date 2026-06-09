@@ -89,6 +89,8 @@ highlight_quiet: "Quiet cul-de-sac"
 # Units
 unit_rooms: "rooms"
 unit_persons_max: "guests max."
+unit_up_to: "up to"
+unit_persons: "guests"
 
 # Table headers
 table_season: "Season"
