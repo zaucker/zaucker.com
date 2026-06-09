@@ -37,8 +37,7 @@ const altHref = `/en/${apt.slug.en}`;
     <ApartmentFeatures apt={apt} locale={locale} />
     <PricingTable apt={apt} locale={locale} />
     <div class="mt-12 p-6 bg-lake/5 border border-lake/20 rounded-2xl text-center">
-      <h3 class="text-xl font-semibold text-stone-900 mb-2">{t(locale, 'nav_interested')}</h3>
-      <p class="text-stone-600 mb-4">{t(locale, 'nav_interested_text')}</p>
+      <h3 class="text-xl font-semibold text-stone-900 mb-4">{t(locale, 'nav_interested')}</h3>
       <div class="flex flex-wrap gap-3 justify-center">
         <a href={pagePath(locale, 'availability')} class="px-6 py-3 rounded-lg bg-sun text-white font-medium hover:bg-sun-dark transition-colors">{t(locale, 'nav_check_availability')}</a>
         <a href={pagePath(locale, 'contact')} class="px-6 py-3 rounded-lg border border-lake text-lake font-medium hover:bg-lake hover:text-white transition-colors">{t(locale, 'nav_contact_us')}</a>
