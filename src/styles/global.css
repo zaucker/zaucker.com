@@ -1,0 +1,26 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --color-lake: #2c7bb6;
+  --color-lake-dark: #1a5276;
+  --color-alpine: #27ae60;
+}
+
+/* Markdown prose (replaces Hugo `prose prose-stone`) */
+.prose { color: var(--color-stone-700); line-height: 1.7; }
+.prose h2 { font-size: 1.5rem; font-weight: 600; color: var(--color-stone-900); margin: 1.75rem 0 0.75rem; }
+.prose h3 { font-size: 1.25rem; font-weight: 600; color: var(--color-stone-900); margin: 1.5rem 0 0.5rem; }
+.prose p { margin: 0.75rem 0; }
+.prose ul { list-style: disc; padding-left: 1.25rem; margin: 0.75rem 0; }
+.prose li { margin: 0.25rem 0; }
+.prose a { color: var(--color-lake); text-decoration: underline; }
+.prose a:hover { color: var(--color-lake-dark); }
+.prose strong { font-weight: 600; color: var(--color-stone-800); }
+
+/* Gallery hover + widget min-height (from main.css) */
+.gallery-grid a { display: block; overflow: hidden; }
+.gallery-grid img { transition: transform 0.3s ease; }
+.gallery-grid a:hover img { transform: scale(1.05); }
+html { scroll-behavior: smooth; }
+.tfw-widget { min-height: 300px; }
