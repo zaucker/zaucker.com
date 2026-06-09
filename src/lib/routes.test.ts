@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { pagePath, apartmentPath, getNav, alternatePageKey, PAGE_ROUTES } from './routes';
+import { pagePath, apartmentPath, getNav, PAGE_ROUTES } from './routes';
 import { getApartment } from './apartments';
 
 describe('routes', () => {
@@ -19,8 +19,8 @@ describe('routes', () => {
     expect(labels).toEqual(['4 Zi DG', '3 Zi UG', 'Fotos', 'Verfügbarkeit', 'Kontakt', 'Infos']);
     expect(getNav('de')[0].href).toBe('/dachgeschoss');
   });
-  it('maps page keys for the language switch', () => {
-    expect(alternatePageKey('availability')).toBe('availability');
+  it('marks German-only legal pages with a null English route', () => {
     expect(PAGE_ROUTES.impressum.en).toBeNull();
+    expect(PAGE_ROUTES.datenschutz.en).toBeNull();
   });
 });

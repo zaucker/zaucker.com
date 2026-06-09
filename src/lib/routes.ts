@@ -43,8 +43,3 @@ export function getNav(locale: Locale): NavItem[] {
     { label: t(locale, 'nav_infos'),              href: pagePath(locale, 'infos') },
   ];
 }
-
-/** Page keys share an identity across locales (used by the language switcher). */
-export function alternatePageKey(key: PageKey): PageKey {
-  return key;
-}
