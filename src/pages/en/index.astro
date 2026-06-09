@@ -30,7 +30,7 @@ function aptMeta(apt: typeof apartments[number]) {
         ))}
       </ul>
     </section>
-    <section class="pt-8 pb-16 border-t border-stone-100">
+    <section class="pt-8 pb-16">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         {apartments.map(apt => { const m = aptMeta(apt); return <ApartmentCard apt={apt} locale={locale} title={m.title} />; })}
       </div>
