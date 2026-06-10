@@ -13,3 +13,16 @@ export function apartmentImages(apartmentId: string): ImageMetadata[] {
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([, mod]) => mod.default);
 }
+
+// Eager-import the homepage gallery images so astro:assets can optimize them.
+const HOME_FILES = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/home/gallery/*.{jpg,jpeg,png,webp}',
+  { eager: true },
+);
+
+/** Returns optimized homepage gallery image metadata, sorted by filename. */
+export function homeImages(): ImageMetadata[] {
+  return Object.entries(HOME_FILES)
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([, mod]) => mod.default);
+}

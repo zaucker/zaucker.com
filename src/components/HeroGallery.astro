@@ -1,0 +1,18 @@
+---
+import type { Locale } from '@/lib/types';
+import { t } from '@/lib/i18n';
+import { getImage } from 'astro:assets';
+import HeroGalleryIsland from '@/components/HeroGallery.svelte';
+import type { ImageMetadata } from 'astro';
+interface Props { images: ImageMetadata[]; alt: string; locale: Locale; }
+const { images, alt, locale } = Astro.props;
+
+const items = await Promise.all(images.map(async (img) => {
+  const hero = await getImage({ src: img, width: 1100, height: 825, format: 'webp', quality: 85 });
+  const full = await getImage({ src: img, width: 1600, height: 1200, fit: 'inside', format: 'webp', quality: 90 });
+  return { hero: hero.src, full: full.src, alt, w: hero.attributes.width ?? 1100, h: hero.attributes.height ?? 825 };
+}));
+---
+{items.length > 0 && (
+  <HeroGalleryIsland client:visible items={items} label={t(locale, 'nav_all_photos')} />
+)}
