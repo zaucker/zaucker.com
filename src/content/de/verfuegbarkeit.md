@@ -5,7 +5,7 @@ description: "Aktuelle Verfügbarkeit der Ferienwohnungen Zaucker in Überlingen
 
 ### Langzeitmiete Winter
 
-Reduzierte Tarife November–April für Mietdauer ab 3 Monaten.
+Reduzierte Tarife Oktober–April für Mietdauer ab 3 Monaten.
 
 ### Mindestaufenthalt
 

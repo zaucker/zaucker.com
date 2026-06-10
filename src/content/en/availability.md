@@ -5,7 +5,7 @@ description: "Current availability for our holiday apartments in Überlingen."
 
 ### Long-term Winter Rental
 
-Reduced rates November–April for stays of 3 months or more.
+Reduced rates October–April for stays of 3 months or more.
 
 ### Minimum Stay
 
