@@ -106,3 +106,10 @@ error_404_home: "Go to homepage"
 nav_contact_short: "Contact"
 nav_availability_short: "Availability"
 nav_infos: "Infos"
+
+# Availability calendar
+avail_free: "free"
+avail_booked: "booked"
+avail_loading: "Loading availability …"
+avail_error: "Availability is currently unavailable."
+avail_updated: "As of"

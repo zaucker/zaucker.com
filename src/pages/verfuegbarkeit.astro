@@ -1,7 +1,8 @@
 ---
 import type { Locale } from '@/lib/types';
 import Layout from '@/layouts/Layout.astro';
-import AvailabilityWidget from '@/components/AvailabilityWidget.astro';
+import AvailabilityCalendar from '@/components/AvailabilityCalendar.svelte';
+import { t } from '@/lib/i18n';
 import { getVisibleApartments } from '@/lib/apartments';
 import { getEntry, render } from 'astro:content';
 
@@ -9,14 +10,23 @@ const locale: Locale = 'de';
 const page = await getEntry('pages', 'de/verfuegbarkeit');
 const { Content } = await render(page!);
 const apartments = getVisibleApartments();
+const labels = {
+  free: t(locale, 'avail_free'),
+  booked: t(locale, 'avail_booked'),
+  loading: t(locale, 'avail_loading'),
+  error: t(locale, 'avail_error'),
+  updated: t(locale, 'avail_updated'),
+};
 ---
 <Layout locale={locale} title={page!.data.title} description={page!.data.description ?? ''} currentPath="/verfuegbarkeit" altHref="/en/availability">
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <h1 class="text-4xl font-bold text-stone-900 mb-6">{page!.data.title}</h1>
-    {apartments.map(apt => <AvailabilityWidget apt={apt} locale={locale} />)}
+    {apartments.map(apt => (
+      <section class="mt-10">
+        <h2 class="text-xl font-semibold text-stone-900 mb-4">{t(locale, apt.name_key)}</h2>
+        <AvailabilityCalendar client:visible apartmentId={apt.id} locale={locale} labels={labels} />
+      </section>
+    ))}
     <div class="prose prose-stone mt-12"><Content /></div>
   </div>
-  <script is:inline>
-    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//www.traum-ferienwohnungen.de/widgets/boot.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","traumfewo-widget-js");
-  </script>
 </Layout>

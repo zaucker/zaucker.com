@@ -106,3 +106,10 @@ error_404_home: "Zur Startseite"
 nav_contact_short: "Kontakt"
 nav_availability_short: "Verfügbarkeit"
 nav_infos: "Infos"
+
+# Availability calendar
+avail_free: "frei"
+avail_booked: "belegt"
+avail_loading: "Belegung wird geladen …"
+avail_error: "Belegung momentan nicht verfügbar."
+avail_updated: "Stand"
