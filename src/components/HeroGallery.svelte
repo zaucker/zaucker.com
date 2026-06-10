@@ -27,12 +27,14 @@
 
 <svelte:window on:keydown={onKey} />
 
-<div class="relative">
-  <button type="button" class="block w-full" onclick={() => openAt(0)} aria-label={label}>
-    <img src={items[0].hero} width={items[0].w} height={items[0].h} alt={items[0].alt}
-         class="rounded-3xl ring-1 ring-black/5 w-full aspect-[4/3] object-cover" />
-  </button>
-  {#if items.length > 1}
+<div class="relative flex flex-col gap-3 sm:gap-4">
+  {#each items.slice(0, 2) as item, i}
+    <button type="button" class="block w-full" onclick={() => openAt(i)} aria-label={item.alt}>
+      <img src={item.hero} width={item.w} height={item.h} alt={item.alt}
+           class="rounded-3xl ring-1 ring-black/5 w-full aspect-[4/3] object-cover" />
+    </button>
+  {/each}
+  {#if items.length > 2}
     <button type="button" onclick={() => openAt(0)}
       class="absolute bottom-3 right-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/90 backdrop-blur text-sm font-medium text-stone-700 hover:text-lake shadow-sm transition-colors">
       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">

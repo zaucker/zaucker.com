@@ -11,7 +11,7 @@ const norm = (p: string) => (p === '/' ? '/' : p.replace(/\/$/, ''));
 const isActive = (href: string) => norm(currentPath) === norm(href);
 ---
 <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-stone-100 shadow-sm">
-  <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
+  <nav class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
     <div class="flex items-center justify-between h-16">
       <div class="hidden md:flex items-center gap-1">
         {nav.map(item => (
