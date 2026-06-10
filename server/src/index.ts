@@ -65,6 +65,8 @@ async function main(): Promise<void> {
   const configPath = process.env.CONFIG_PATH ?? join(here, '..', 'config.local.json');
   const cachePath = process.env.CACHE_PATH ?? join(here, '..', '.cache', 'availability.json');
   const port = Number(process.env.PORT ?? 4317);
+  // Default to localhost; set HOST=0.0.0.0 when a proxy on another host must reach it.
+  const host = process.env.HOST ?? '127.0.0.1';
 
   const config = await loadConfig(configPath);
   const cache: Cache = new Map();
@@ -103,8 +105,8 @@ async function main(): Promise<void> {
     return a;
   });
 
-  await app.listen({ port, host: '127.0.0.1' });
-  app.log.info(`calendar service on :${port}`);
+  await app.listen({ port, host });
+  app.log.info(`calendar service on ${host}:${port}`);
   await refreshAll().catch((e) => app.log.error(e));
   setInterval(() => {
     void refreshAll().catch((e) => app.log.error(e));
