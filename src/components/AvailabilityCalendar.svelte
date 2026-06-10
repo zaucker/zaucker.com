@@ -21,15 +21,6 @@
   const visibleMonths = $derived(months.slice(pager.start, pager.start + PAGE));
   function pagePrev() { pager.start = Math.max(0, pager.start - STEP); }
   function pageNext() { pager.start = Math.min(maxStart, pager.start + STEP); }
-  function rangeLabel(): string {
-    const fmt = (m: { year: number; month: number }) =>
-      new Intl.DateTimeFormat(locale, { month: 'long' }).format(new Date(m.year, m.month, 1));
-    const a = months[pager.start];
-    const b = months[Math.min(pager.start + PAGE - 1, months.length - 1)];
-    return a.year === b.year
-      ? `${fmt(a)} – ${fmt(b)} ${b.year}`
-      : `${fmt(a)} ${a.year} – ${fmt(b)} ${b.year}`;
-  }
   const monthName = (y: number, m: number) =>
     new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric' }).format(new Date(y, m, 1));
   // Monday-first weekday initials. 2024-01-01 is a Monday, so this yields Mon…Sun.
@@ -109,7 +100,6 @@
   <div class="flex items-center justify-between mb-3">
     <button type="button" onclick={pagePrev} disabled={pager.start === 0} aria-label="Previous months"
       class="px-3 py-1.5 rounded-md border border-stone-200 text-stone-600 text-lg leading-none hover:border-lake hover:text-lake disabled:opacity-40 disabled:hover:border-stone-200 disabled:hover:text-stone-600 transition-colors">‹</button>
-    <span class="font-display font-medium text-ink capitalize">{rangeLabel()}</span>
     <button type="button" onclick={pageNext} disabled={pager.start >= maxStart} aria-label="Next months"
       class="px-3 py-1.5 rounded-md border border-stone-200 text-stone-600 text-lg leading-none hover:border-lake hover:text-lake disabled:opacity-40 disabled:hover:border-stone-200 disabled:hover:text-stone-600 transition-colors">›</button>
   </div>
