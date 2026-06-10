@@ -1,6 +1,6 @@
 import type { Availability, FeedUrls, Range } from './types.js';
 import { parseBusyRanges } from './ical.js';
-import { dedupeRanges, clipRanges } from './merge.js';
+import { normalizeBookings, clipRanges } from './merge.js';
 import { windowStart, windowEnd } from './dates.js';
 
 export type FetchText = (url: string) => Promise<string>;
@@ -35,8 +35,7 @@ export async function buildAvailability(
     }
   }
 
-  const bookings = dedupeRanges(clipRanges(collected, windowStart(now), windowEnd(now, 12)))
-    .sort((a, b) => (a.from < b.from ? -1 : a.from > b.from ? 1 : a.to < b.to ? -1 : a.to > b.to ? 1 : 0));
+  const bookings = normalizeBookings(clipRanges(collected, windowStart(now), windowEnd(now, 12)));
   return {
     availability: { apartmentId, updatedAt: now.toISOString(), stale, bookings },
     byUrl,
