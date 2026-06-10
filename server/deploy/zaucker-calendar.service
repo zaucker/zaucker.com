@@ -5,9 +5,9 @@ After=network.target
 [Service]
 Type=simple
 WorkingDirectory=%h/calendar
-# Launch through nvm-exec so the user-space (nvm) Node is used. `nvm alias
-# default` (set by `nvm install --lts`) picks the version; survives upgrades.
-ExecStart=%h/.nvm/nvm-exec node dist/index.js
+# Source nvm so the user-space (nvm) Node is on PATH (uses the `default` alias),
+# then run the service. Survives Node upgrades as long as `default` is set.
+ExecStart=/bin/bash -c 'export NVM_DIR=%h/.nvm; . "$NVM_DIR/nvm.sh"; exec node dist/index.js'
 Environment=PORT=4317
 # Bind on all interfaces so nginx on proxy-volki-01 can reach it across the
 # network. The API is read-only public availability data (no secrets in
