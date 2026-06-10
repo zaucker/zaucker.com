@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { buildMonths, dayState, type Availability, type DayState } from '@/lib/availability';
+  import { pager } from '@/lib/calendarPager.svelte';
 
   interface Labels { free: string; booked: string; loading: string; error: string; updated: string; refresh: string; }
   let { apartmentId, locale, labels }:
@@ -13,17 +14,17 @@
   const months = buildMonths(new Date(), 12);
 
   // Show 3 months at a time, paged forward/backward (the full year is too tall).
+  // `pager` is shared across all calendar islands so they page together.
   const PAGE = 3;
   const maxStart = months.length - PAGE;
-  let start = $state(0);
-  const visibleMonths = $derived(months.slice(start, start + PAGE));
-  function pagePrev() { start = Math.max(0, start - PAGE); }
-  function pageNext() { start = Math.min(maxStart, start + PAGE); }
+  const visibleMonths = $derived(months.slice(pager.start, pager.start + PAGE));
+  function pagePrev() { pager.start = Math.max(0, pager.start - PAGE); }
+  function pageNext() { pager.start = Math.min(maxStart, pager.start + PAGE); }
   function rangeLabel(): string {
     const fmt = (m: { year: number; month: number }) =>
       new Intl.DateTimeFormat(locale, { month: 'long' }).format(new Date(m.year, m.month, 1));
-    const a = months[start];
-    const b = months[Math.min(start + PAGE - 1, months.length - 1)];
+    const a = months[pager.start];
+    const b = months[Math.min(pager.start + PAGE - 1, months.length - 1)];
     return a.year === b.year
       ? `${fmt(a)} – ${fmt(b)} ${b.year}`
       : `${fmt(a)} ${a.year} – ${fmt(b)} ${b.year}`;
@@ -105,10 +106,10 @@
   </div>
 
   <div class="flex items-center justify-between mb-3">
-    <button type="button" onclick={pagePrev} disabled={start === 0} aria-label="Previous months"
+    <button type="button" onclick={pagePrev} disabled={pager.start === 0} aria-label="Previous months"
       class="px-3 py-1.5 rounded-md border border-stone-200 text-stone-600 text-lg leading-none hover:border-lake hover:text-lake disabled:opacity-40 disabled:hover:border-stone-200 disabled:hover:text-stone-600 transition-colors">‹</button>
     <span class="font-display font-medium text-ink capitalize">{rangeLabel()}</span>
-    <button type="button" onclick={pageNext} disabled={start >= maxStart} aria-label="Next months"
+    <button type="button" onclick={pageNext} disabled={pager.start >= maxStart} aria-label="Next months"
       class="px-3 py-1.5 rounded-md border border-stone-200 text-stone-600 text-lg leading-none hover:border-lake hover:text-lake disabled:opacity-40 disabled:hover:border-stone-200 disabled:hover:text-stone-600 transition-colors">›</button>
   </div>
 
