@@ -46,8 +46,8 @@
       <span class="w-3.5 h-3.5 rounded-sm bg-stone-300"></span>{labels.booked}
     </span>
     {#if data}
-      <span class="ml-auto text-stone-400">
-        {labels.updated}: {new Intl.DateTimeFormat(locale, { dateStyle: 'short', timeStyle: 'short' }).format(new Date(data.updatedAt))}
+      <span class={`ml-auto ${data.stale ? 'text-sun-dark' : 'text-stone-400'}`}>
+        {labels.updated}: {new Intl.DateTimeFormat(locale, { dateStyle: 'short', timeStyle: 'short' }).format(new Date(data.updatedAt))}{data.stale ? ' ⚠' : ''}
       </span>
     {/if}
   </div>
@@ -65,6 +65,7 @@
           {/each}
           {#each mo.days as day}
             <div
+              aria-label={`${day} — ${isBooked(day, busy) ? labels.booked : labels.free}`}
               class={`py-1 rounded-sm ${isBooked(day, busy)
                 ? 'bg-stone-300 text-stone-500 line-through'
                 : 'bg-white ring-1 ring-stone-200 text-stone-700'}`}>
