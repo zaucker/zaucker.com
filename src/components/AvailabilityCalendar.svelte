@@ -97,35 +97,41 @@
     {/if}
   </div>
 
-  <div class="flex items-center justify-between mb-3">
-    <button type="button" onclick={pagePrev} disabled={pager.start === 0} aria-label="Previous months"
-      class="px-3 py-1.5 rounded-md border border-stone-200 text-stone-600 text-lg leading-none hover:border-lake hover:text-lake disabled:opacity-40 disabled:hover:border-stone-200 disabled:hover:text-stone-600 transition-colors">‹</button>
-    <button type="button" onclick={pageNext} disabled={pager.start >= maxStart} aria-label="Next months"
-      class="px-3 py-1.5 rounded-md border border-stone-200 text-stone-600 text-lg leading-none hover:border-lake hover:text-lake disabled:opacity-40 disabled:hover:border-stone-200 disabled:hover:text-stone-600 transition-colors">›</button>
-  </div>
+  <div class="flex items-start gap-1.5 sm:gap-3">
+    <!-- 24px band = the month-title line box, so the arrow centres on the title text -->
+    <div class="shrink-0 flex h-6 items-center">
+      <button type="button" onclick={pagePrev} disabled={pager.start === 0} aria-label="Previous months"
+        class="px-1.5 sm:px-2 py-1 rounded-md border border-stone-200 text-stone-600 text-lg leading-none hover:border-lake hover:text-lake disabled:opacity-40 disabled:hover:border-stone-200 disabled:hover:text-stone-600 transition-colors">‹</button>
+    </div>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    {#each visibleMonths as mo}
-      <div>
-        <div class="font-display font-semibold text-ink mb-2 capitalize">{monthName(mo.year, mo.month)}</div>
-        <div class="grid grid-cols-7 gap-1 text-center text-xs">
-          {#each weekdays as wd}
-            <div class="text-stone-400 font-medium py-1">{wd}</div>
-          {/each}
-          {#each Array.from({ length: leadBlanks(mo.year, mo.month) }) as _}
-            <div></div>
-          {/each}
-          {#each mo.days as day}
-            {@const s = dayState(day, bookings)}
-            <div
-              aria-label={`${day} — ${s === 'free' ? labels.free : labels.booked}`}
-              class="py-1 rounded-sm ring-1 ring-stone-200 bg-white text-stone-700"
-              style={cellStyle(s)}>
-              {Number(day.slice(8))}
-            </div>
-          {/each}
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 flex-1 min-w-0">
+      {#each visibleMonths as mo}
+        <div>
+          <div class="font-display font-semibold text-ink mb-2 capitalize">{monthName(mo.year, mo.month)}</div>
+          <div class="grid grid-cols-7 gap-1 text-center text-xs">
+            {#each weekdays as wd}
+              <div class="text-stone-400 font-medium py-1">{wd}</div>
+            {/each}
+            {#each Array.from({ length: leadBlanks(mo.year, mo.month) }) as _}
+              <div></div>
+            {/each}
+            {#each mo.days as day}
+              {@const s = dayState(day, bookings)}
+              <div
+                aria-label={`${day} — ${s === 'free' ? labels.free : labels.booked}`}
+                class="py-1 rounded-sm ring-1 ring-stone-200 bg-white text-stone-700"
+                style={cellStyle(s)}>
+                {Number(day.slice(8))}
+              </div>
+            {/each}
+          </div>
         </div>
-      </div>
-    {/each}
+      {/each}
+    </div>
+
+    <div class="shrink-0 flex h-6 items-center">
+      <button type="button" onclick={pageNext} disabled={pager.start >= maxStart} aria-label="Next months"
+        class="px-1.5 sm:px-2 py-1 rounded-md border border-stone-200 text-stone-600 text-lg leading-none hover:border-lake hover:text-lake disabled:opacity-40 disabled:hover:border-stone-200 disabled:hover:text-stone-600 transition-colors">›</button>
+    </div>
   </div>
 {/if}
