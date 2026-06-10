@@ -37,5 +37,8 @@ export default defineConfig({
         !page.includes('/erdgeschoss') && !page.includes('/ground-floor'),
     }),
   ],
-  vite: { plugins: [tailwindcss()] },
+  vite: {
+    plugins: [tailwindcss()],
+    server: { proxy: { '/api': 'http://localhost:4317' } },
+  },
 });
