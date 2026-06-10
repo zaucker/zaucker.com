@@ -71,7 +71,9 @@ async function main(): Promise<void> {
   await app.listen({ port, host: '127.0.0.1' });
   app.log.info(`calendar service on :${port}`);
   await refreshAll().catch((e) => app.log.error(e));
-  setInterval(() => { void refreshAll().catch(() => {}); }, config.refreshMinutes * 60_000);
+  setInterval(() => {
+    void refreshAll().catch((e) => app.log.error(e));
+  }, config.refreshMinutes * 60_000);
 }
 
 // Run main() only when executed directly (not when imported by tests).
