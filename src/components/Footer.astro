@@ -1,42 +1,19 @@
 ---
 import type { Locale } from '@/lib/types';
-import { t } from '@/lib/i18n';
 import { pagePath } from '@/lib/routes';
 interface Props { locale: Locale; }
 const { locale } = Astro.props;
-const owner = {
-  name: 'Ferienwohnungen Zaucker',
-  email: 'fewo@zaucker.com',
-  phone: '+41 79 675 06 30',
-  address: 'Werner-Haberland-Weg 51',
-  city: 'D-88662 Überlingen',
-};
-const year = 2026; // build year; bump as needed (no runtime clock in static build)
-const legal = [
+const links = [
+  { label: locale === 'de' ? 'Kontakt' : 'Contact', href: pagePath(locale, 'contact') },
   { label: locale === 'de' ? 'Impressum' : 'Legal Notice', href: pagePath(locale, 'impressum') },
   { label: locale === 'de' ? 'Datenschutz' : 'Privacy Policy', href: pagePath(locale, 'datenschutz') },
 ];
 ---
-<footer class="mt-11 bg-lake text-white/85">
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div>
-        <h3 class="font-display text-white text-lg font-semibold mb-3">{t(locale, 'contact_address')}</h3>
-        <address class="not-italic text-sm space-y-1">
-          <p>{owner.name}</p>
-          <p>{owner.address}</p>
-          <p>{owner.city}</p>
-          <p><a href={`tel:${owner.phone.replace(/\s/g, '')}`} class="hover:text-white transition-colors">{owner.phone}</a></p>
-          <p><a href={`mailto:${owner.email}`} class="hover:text-white transition-colors">{owner.email}</a></p>
-        </address>
-      </div>
-      <div>
-        <h3 class="font-display text-white text-lg font-semibold mb-3">{t(locale, 'nav_legal')}</h3>
-        <ul class="text-sm space-y-1">
-          {legal.map(l => <li><a href={l.href} class="hover:text-white transition-colors">{l.label}</a></li>)}
-          <li class="pt-3 text-white/45">© {year} {owner.name}</li>
-        </ul>
-      </div>
-    </div>
-  </div>
+<footer class="shrink-0 bg-lake text-white/85">
+  <nav class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 h-11 flex items-center justify-center gap-5 sm:gap-8 text-sm"
+       aria-label="Footer">
+    {links.map(l => (
+      <a href={l.href} class="hover:text-white transition-colors">{l.label}</a>
+    ))}
+  </nav>
 </footer>

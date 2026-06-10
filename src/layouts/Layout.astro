@@ -23,9 +23,9 @@ const alternates = altHref
   <head>
     <Head locale={locale} title={title} description={description} canonical={canonical} alternates={alternates} isHome={isHome} />
   </head>
-  <body class="min-h-screen flex flex-col text-ink">
+  <body class="h-dvh flex flex-col text-ink overflow-hidden">
     <Header locale={locale} currentPath={currentPath} altHref={altHref} />
-    <main class="flex-1" id="main-content">
+    <main class="flex-1 overflow-y-auto" id="main-content">
       <slot />
     </main>
     <Footer locale={locale} />
