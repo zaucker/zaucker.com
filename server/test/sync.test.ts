@@ -52,6 +52,30 @@ describe('buildAvailability', () => {
     ]);
   });
 
+  it('applies a feed checkoutShiftDays so off-by-one feeds align', async () => {
+    // Airbnb: 07-06 -> 07-15 (correct). traum mirrors it as 07-06 -> 07-16 (+1).
+    const airbnb = `BEGIN:VCALENDAR
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260706
+DTEND;VALUE=DATE:20260715
+END:VEVENT
+END:VCALENDAR`;
+    const traum = `BEGIN:VCALENDAR
+BEGIN:VEVENT
+DTSTART;VALUE=DATE:20260706
+DTEND;VALUE=DATE:20260716
+END:VEVENT
+END:VCALENDAR`;
+    const fetchText = async (url: string) => (url.includes('airbnb') ? airbnb : traum);
+    const { availability } = await buildAvailability(
+      '4_zi_dg',
+      { airbnb: 'http://airbnb', traum: { url: 'http://traum', checkoutShiftDays: -1 } },
+      fetchText, now,
+    );
+    // traum's 07-16 shifts to 07-15, matching Airbnb -> one booking, not two.
+    expect(availability.bookings).toEqual([{ from: '2026-07-06', to: '2026-07-15' }]);
+  });
+
   it('marks stale and reuses per-feed last-good when one feed fails', async () => {
     const fetchText = async (url: string) => {
       if (url.includes('airbnb')) return SAME;

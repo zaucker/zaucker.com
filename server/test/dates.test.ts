@@ -1,5 +1,13 @@
 import { describe, it, expect } from 'vitest';
-import { ymd, windowStart, windowEnd } from '../src/dates.js';
+import { ymd, windowStart, windowEnd, addDays } from '../src/dates.js';
+
+describe('addDays', () => {
+  it('shifts a date by positive/negative days across month boundaries', () => {
+    expect(addDays('2026-07-16', -1)).toBe('2026-07-15');
+    expect(addDays('2026-07-01', -1)).toBe('2026-06-30');
+    expect(addDays('2026-12-31', 1)).toBe('2027-01-01');
+  });
+});
 
 describe('dates', () => {
   it('formats a Date as YYYY-MM-DD using local components', () => {
