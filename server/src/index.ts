@@ -8,9 +8,14 @@ import { readSnapshot, writeSnapshot } from './store.js';
 
 export type Cache = Map<string, Availability>;
 
+/** Force a re-sync of one apartment; resolves to fresh availability, or null if
+ *  the apartment is unknown. */
+export type RefreshFn = (aptId: string) => Promise<Availability | null>;
+
 /** Build the Fastify app over a (mutable) availability cache. */
-export function createApp(cache: Cache): FastifyInstance {
+export function createApp(cache: Cache, refresh?: RefreshFn): FastifyInstance {
   const app = Fastify({ logger: false });
+
   app.get<{ Params: { aptId: string } }>(
     '/api/availability/:aptId',
     async (req, reply) => {
@@ -22,6 +27,23 @@ export function createApp(cache: Cache): FastifyInstance {
       return a;
     },
   );
+
+  app.post<{ Params: { aptId: string } }>(
+    '/api/availability/:aptId/refresh',
+    async (req, reply) => {
+      if (!refresh) {
+        reply.code(503);
+        return { error: 'refresh unavailable' };
+      }
+      const a = await refresh(req.params.aptId);
+      if (!a) {
+        reply.code(404);
+        return { error: 'unknown apartment' };
+      }
+      return a;
+    },
+  );
+
   return app;
 }
 
@@ -54,20 +76,33 @@ async function main(): Promise<void> {
     byUrl = snap.byUrl ?? {};
   }
 
-  async function refreshAll(): Promise<void> {
-    const now = new Date();
-    const nextByUrl: Record<string, Range[]> = {};
-    for (const [id, feeds] of Object.entries(config.apartments)) {
-      const { availability, byUrl: ranges } =
-        await buildAvailability(id, feeds, fetchText, now, byUrl);
-      cache.set(id, availability);
-      Object.assign(nextByUrl, ranges);
-    }
-    byUrl = nextByUrl;
-    await writeSnapshot(cachePath, { availability: Object.fromEntries(cache), byUrl });
+  /** Re-sync one apartment's feeds into the cache (no snapshot write). */
+  async function refreshApartment(aptId: string): Promise<Availability | null> {
+    const feeds = config.apartments[aptId];
+    if (!feeds) return null;
+    const { availability, byUrl: ranges } =
+      await buildAvailability(aptId, feeds, fetchText, new Date(), byUrl);
+    cache.set(aptId, availability);
+    Object.assign(byUrl, ranges);
+    return availability;
   }
 
-  const app = createApp(cache);
+  const persist = () =>
+    writeSnapshot(cachePath, { availability: Object.fromEntries(cache), byUrl });
+
+  async function refreshAll(): Promise<void> {
+    for (const id of Object.keys(config.apartments)) {
+      await refreshApartment(id);
+    }
+    await persist();
+  }
+
+  const app = createApp(cache, async (aptId) => {
+    const a = await refreshApartment(aptId);
+    if (a) await persist();
+    return a;
+  });
+
   await app.listen({ port, host: '127.0.0.1' });
   app.log.info(`calendar service on :${port}`);
   await refreshAll().catch((e) => app.log.error(e));

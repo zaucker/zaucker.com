@@ -2,14 +2,32 @@
   import { onMount } from 'svelte';
   import { buildMonths, dayState, type Availability, type DayState } from '@/lib/availability';
 
-  interface Labels { free: string; booked: string; loading: string; error: string; updated: string; }
+  interface Labels { free: string; booked: string; loading: string; error: string; updated: string; refresh: string; }
   let { apartmentId, locale, labels }:
     { apartmentId: string; locale: string; labels: Labels } = $props();
 
   let state = $state<'loading' | 'ok' | 'error'>('loading');
   let data = $state<Availability | null>(null);
+  let refreshing = $state(false);
 
   const months = buildMonths(new Date(), 12);
+
+  // Show 3 months at a time, paged forward/backward (the full year is too tall).
+  const PAGE = 3;
+  const maxStart = months.length - PAGE;
+  let start = $state(0);
+  const visibleMonths = $derived(months.slice(start, start + PAGE));
+  function pagePrev() { start = Math.max(0, start - PAGE); }
+  function pageNext() { start = Math.min(maxStart, start + PAGE); }
+  function rangeLabel(): string {
+    const fmt = (m: { year: number; month: number }) =>
+      new Intl.DateTimeFormat(locale, { month: 'long' }).format(new Date(m.year, m.month, 1));
+    const a = months[start];
+    const b = months[Math.min(start + PAGE - 1, months.length - 1)];
+    return a.year === b.year
+      ? `${fmt(a)} – ${fmt(b)} ${b.year}`
+      : `${fmt(a)} ${a.year} – ${fmt(b)} ${b.year}`;
+  }
   const monthName = (y: number, m: number) =>
     new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric' }).format(new Date(y, m, 1));
   // Monday-first weekday initials. 2024-01-01 is a Monday, so this yields Mon…Sun.
@@ -46,6 +64,19 @@
   });
 
   const bookings = $derived(data?.bookings ?? []);
+
+  // Force the service to re-poll the feeds, then show the fresh result.
+  async function refresh() {
+    if (refreshing) return;
+    refreshing = true;
+    try {
+      const res = await fetch(`/api/availability/${apartmentId}/refresh`, { method: 'POST' });
+      if (res.ok) data = await res.json();
+    } catch {
+      /* keep showing the current data */
+    }
+    refreshing = false;
+  }
 </script>
 
 {#if state === 'loading'}
@@ -61,14 +92,28 @@
       <span class="w-3.5 h-3.5 rounded-sm bg-stone-300"></span>{labels.booked}
     </span>
     {#if data}
-      <span class={`ml-auto ${data.stale ? 'text-sun-dark' : 'text-stone-400'}`}>
+      <span class={`ml-auto inline-flex items-center gap-1.5 ${data.stale ? 'text-sun-dark' : 'text-stone-400'}`}>
         {labels.updated}: {new Intl.DateTimeFormat(locale, { dateStyle: 'short', timeStyle: 'short' }).format(new Date(data.updatedAt))}{data.stale ? ' ⚠' : ''}
+        <button type="button" onclick={refresh} disabled={refreshing} title={labels.refresh} aria-label={labels.refresh}
+          class="p-0.5 rounded hover:text-lake disabled:opacity-50 transition-colors">
+          <svg class={`w-4 h-4 ${refreshing ? 'animate-spin' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+        </button>
       </span>
     {/if}
   </div>
 
+  <div class="flex items-center justify-between mb-3">
+    <button type="button" onclick={pagePrev} disabled={start === 0} aria-label="Previous months"
+      class="px-3 py-1.5 rounded-md border border-stone-200 text-stone-600 text-lg leading-none hover:border-lake hover:text-lake disabled:opacity-40 disabled:hover:border-stone-200 disabled:hover:text-stone-600 transition-colors">‹</button>
+    <span class="font-display font-medium text-ink capitalize">{rangeLabel()}</span>
+    <button type="button" onclick={pageNext} disabled={start >= maxStart} aria-label="Next months"
+      class="px-3 py-1.5 rounded-md border border-stone-200 text-stone-600 text-lg leading-none hover:border-lake hover:text-lake disabled:opacity-40 disabled:hover:border-stone-200 disabled:hover:text-stone-600 transition-colors">›</button>
+  </div>
+
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    {#each months as mo}
+    {#each visibleMonths as mo}
       <div>
         <div class="font-display font-semibold text-ink mb-2 capitalize">{monthName(mo.year, mo.month)}</div>
         <div class="grid grid-cols-7 gap-1 text-center text-xs">
