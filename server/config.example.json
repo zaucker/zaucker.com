@@ -1,0 +1,13 @@
+{
+  "refreshMinutes": 30,
+  "apartments": {
+    "4_zi_dg": {
+      "airbnb": "https://www.airbnb.com/calendar/ical/REPLACE.ics?s=REPLACE",
+      "traum": "https://www.traum-ferienwohnungen.de/REPLACE/export.ics"
+    },
+    "3_zi_ug": {
+      "airbnb": "https://www.airbnb.com/calendar/ical/REPLACE.ics?s=REPLACE",
+      "traum": "https://www.traum-ferienwohnungen.de/REPLACE/export.ics"
+    }
+  }
+}

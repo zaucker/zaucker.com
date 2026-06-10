@@ -16,3 +16,9 @@ zaucker.tar.gz
 
 # loose source photo scratch folder (not used by the build)
 images/
+
+# calendar service build/secret artifacts
+server/node_modules/
+server/dist/
+server/.cache/
+server/config.local.json
