@@ -13,13 +13,14 @@
 
   const months = buildMonths(new Date(), 12);
 
-  // Show 3 months at a time, paged forward/backward (the full year is too tall).
+  // Show 3 months at a time, advancing one month per step (the full year is too tall).
   // `pager` is shared across all calendar islands so they page together.
   const PAGE = 3;
+  const STEP = 1;
   const maxStart = months.length - PAGE;
   const visibleMonths = $derived(months.slice(pager.start, pager.start + PAGE));
-  function pagePrev() { pager.start = Math.max(0, pager.start - PAGE); }
-  function pageNext() { pager.start = Math.min(maxStart, pager.start + PAGE); }
+  function pagePrev() { pager.start = Math.max(0, pager.start - STEP); }
+  function pageNext() { pager.start = Math.min(maxStart, pager.start + STEP); }
   function rangeLabel(): string {
     const fmt = (m: { year: number; month: number }) =>
       new Intl.DateTimeFormat(locale, { month: 'long' }).format(new Date(m.year, m.month, 1));
