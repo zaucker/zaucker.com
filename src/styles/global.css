@@ -37,7 +37,10 @@
   body {
     /* sky-over-the-lake wash fading into warm sand */
     background:
-      radial-gradient(120% 60% at 50% -10%, var(--color-mist) 0%, transparent 55%),
+      radial-gradient(135% 80% at 50% -18%,
+        color-mix(in oklab, var(--color-lake) 34%, var(--color-mist)) 0%,
+        var(--color-mist) 34%,
+        transparent 70%),
       var(--color-sand);
     background-repeat: no-repeat;
     color: var(--color-ink);
