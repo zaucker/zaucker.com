@@ -6,7 +6,7 @@ function seededCache(): Cache {
   const cache: Cache = new Map<string, Availability>();
   cache.set('4_zi_dg', {
     apartmentId: '4_zi_dg', updatedAt: '2026-07-01T00:00:00.000Z',
-    stale: false, busy: [{ from: '2026-07-01', to: '2026-07-08' }],
+    stale: false, bookings: [{ from: '2026-07-01', to: '2026-07-08' }],
   });
   return cache;
 }

@@ -18,5 +18,8 @@ export interface Availability {
   apartmentId: string;
   updatedAt: string; // ISO timestamp
   stale: boolean;
-  busy: Range[];
+  /** Individual bookings (NOT merged), each a half-open [from=checkin, to=checkout)
+   *  range. Kept separate so the UI can render check-in/checkout half-days and
+   *  same-day turnovers between different guests. */
+  bookings: Range[];
 }

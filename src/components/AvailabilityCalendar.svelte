@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { buildMonths, isBooked, type Availability } from '@/lib/availability';
+  import { buildMonths, dayState, type Availability, type DayState } from '@/lib/availability';
 
   interface Labels { free: string; booked: string; loading: string; error: string; updated: string; }
   let { apartmentId, locale, labels }:
@@ -19,6 +19,21 @@
   // Leading blank cells before day 1 (Monday-first).
   const leadBlanks = (y: number, m: number) => (new Date(y, m, 1).getDay() + 6) % 7;
 
+  // Booked fill (stone-300). Half-days are drawn with a diagonal gradient split
+  // along the anti-diagonal: morning = upper-left, afternoon = lower-right. The
+  // booked triangles stop a little short of the centre so a same-day turnover
+  // shows two distinct triangles (two guests) with a thin free sliver between.
+  const BOOKED = '#c8bca7';
+  function cellStyle(s: DayState): string {
+    switch (s) {
+      case 'full':     return `background-image:linear-gradient(${BOOKED},${BOOKED})`;
+      case 'checkout': return `background-image:linear-gradient(to bottom right,${BOOKED} 0 47%,transparent 47%)`;
+      case 'checkin':  return `background-image:linear-gradient(to bottom right,transparent 0 53%,${BOOKED} 53%)`;
+      case 'turnover': return `background-image:linear-gradient(to bottom right,${BOOKED} 0 46%,transparent 46% 54%,${BOOKED} 54%)`;
+      default:         return '';
+    }
+  }
+
   onMount(async () => {
     try {
       const res = await fetch(`/api/availability/${apartmentId}`);
@@ -30,7 +45,7 @@
     }
   });
 
-  const busy = $derived(data?.busy ?? []);
+  const bookings = $derived(data?.bookings ?? []);
 </script>
 
 {#if state === 'loading'}
@@ -64,11 +79,11 @@
             <div></div>
           {/each}
           {#each mo.days as day}
+            {@const s = dayState(day, bookings)}
             <div
-              aria-label={`${day} — ${isBooked(day, busy) ? labels.booked : labels.free}`}
-              class={`py-1 rounded-sm ${isBooked(day, busy)
-                ? 'bg-stone-300 text-stone-500 line-through'
-                : 'bg-white ring-1 ring-stone-200 text-stone-700'}`}>
+              aria-label={`${day} — ${s === 'free' ? labels.free : labels.booked}`}
+              class="py-1 rounded-sm ring-1 ring-stone-200 bg-white text-stone-700"
+              style={cellStyle(s)}>
               {Number(day.slice(8))}
             </div>
           {/each}

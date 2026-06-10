@@ -179,6 +179,28 @@ service runs locally and the island works against it. New i18n keys:
 - **Frontend (vitest):** the pure grid helpers — `buildMonths(today)` and
   `isBooked(day, ranges)` — unit-tested; Svelte rendering kept thin on top.
 
+## Addendum (2026-06-10): half-day rendering
+
+After seeing the first version, the owner asked the calendar to match the old
+traum widget's **half-day triangles** so a same-day turnover between two guests is
+visible. This changed two things from the original "free/booked only" plan:
+
+- **The service keeps bookings individual** (deduped across feeds, but NOT
+  merged): `Availability.bookings: Range[]` replaces the merged `busy`. Each
+  booking is half-open `[from=checkin, to=checkout)`. Exact duplicates (the same
+  booking mirrored into both feeds) are removed via `dedupeRanges`.
+- **The UI classifies each day** with `dayState(day, bookings)` →
+  `free | full | checkin | checkout | turnover`:
+  - am occupied ⇔ ∃ booking `from < day ≤ to`; pm occupied ⇔ ∃ `from ≤ day < to`;
+    interior ⇔ ∃ `from < day < to`.
+  - `full` (interior) = solid; `checkin` = afternoon (lower-right triangle);
+    `checkout` = morning (upper-left triangle); `turnover` (a checkout AND a
+    different check-in on the same day) = both triangles.
+  - Triangles are drawn with a diagonal `linear-gradient` split along the
+    anti-diagonal, stopping just short of centre (booked to 47% / from 53%, a
+    46–54% gap for turnovers) so a turnover shows two distinct triangles with a
+    thin free sliver between them.
+
 ## How this grows (later phases, not now)
 
 The same service later gains `POST /reservations`, a SQLite store, and

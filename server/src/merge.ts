@@ -18,6 +18,20 @@ export function mergeRanges(ranges: Range[]): Range[] {
   return out;
 }
 
+/** Remove exact-duplicate ranges (same from+to), preserving first-seen order.
+ *  The same booking appears in both feeds when platforms sync to each other. */
+export function dedupeRanges(ranges: Range[]): Range[] {
+  const seen = new Set<string>();
+  const out: Range[] = [];
+  for (const r of ranges) {
+    const key = `${r.from}|${r.to}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push({ ...r });
+  }
+  return out;
+}
+
 /** Clip ranges to the half-open window [from, to); drop ranges fully outside. */
 export function clipRanges(ranges: Range[], from: string, to: string): Range[] {
   const out: Range[] = [];

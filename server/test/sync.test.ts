@@ -1,28 +1,34 @@
 import { describe, it, expect } from 'vitest';
 import { buildAvailability } from '../src/sync.js';
 
-const AIRBNB = `BEGIN:VCALENDAR
+// Same booking reported by both platforms (they sync to each other).
+const SAME = `BEGIN:VCALENDAR
 BEGIN:VEVENT
-UID:b1
+UID:x1
 DTSTART;VALUE=DATE:20260701
 DTEND;VALUE=DATE:20260708
 END:VEVENT
 END:VCALENDAR`;
 
-const TRAUM = `BEGIN:VCALENDAR
+// Two consecutive (back-to-back) bookings in one feed.
+const CONSECUTIVE = `BEGIN:VCALENDAR
 BEGIN:VEVENT
-UID:t1
-DTSTART;VALUE=DATE:20260705
-DTEND;VALUE=DATE:20260712
+UID:c1
+DTSTART;VALUE=DATE:20260710
+DTEND;VALUE=DATE:20260715
+END:VEVENT
+BEGIN:VEVENT
+UID:c2
+DTSTART;VALUE=DATE:20260715
+DTEND;VALUE=DATE:20260720
 END:VEVENT
 END:VCALENDAR`;
 
 const now = new Date(2026, 6, 1); // 2026-07-01
 
 describe('buildAvailability', () => {
-  it('merges both feeds into one busy set (union, clipped to window)', async () => {
-    const fetchText = async (url: string) =>
-      url.includes('airbnb') ? AIRBNB : TRAUM;
+  it('dedupes the same booking reported by both feeds', async () => {
+    const fetchText = async () => SAME; // both feeds return the identical booking
     const { availability } = await buildAvailability(
       '4_zi_dg',
       { airbnb: 'http://airbnb', traum: 'http://traum' },
@@ -30,24 +36,40 @@ describe('buildAvailability', () => {
     );
     expect(availability.apartmentId).toBe('4_zi_dg');
     expect(availability.stale).toBe(false);
-    expect(availability.busy).toEqual([{ from: '2026-07-01', to: '2026-07-12' }]);
+    expect(availability.bookings).toEqual([{ from: '2026-07-01', to: '2026-07-08' }]);
+  });
+
+  it('keeps consecutive bookings separate (does NOT merge the turnover)', async () => {
+    const fetchText = async () => CONSECUTIVE;
+    const { availability } = await buildAvailability(
+      '4_zi_dg',
+      { traum: 'http://traum' },
+      fetchText, now,
+    );
+    expect(availability.bookings).toEqual([
+      { from: '2026-07-10', to: '2026-07-15' },
+      { from: '2026-07-15', to: '2026-07-20' },
+    ]);
   });
 
   it('marks stale and reuses per-feed last-good when one feed fails', async () => {
     const fetchText = async (url: string) => {
-      if (url.includes('airbnb')) return AIRBNB;
+      if (url.includes('airbnb')) return SAME;
       throw new Error('traum down');
     };
-    const prevByUrl = { 'http://traum': [{ from: '2026-07-05', to: '2026-07-12' }] };
+    const prevByUrl = { 'http://traum': [{ from: '2026-08-01', to: '2026-08-05' }] };
     const { availability, byUrl } = await buildAvailability(
       '4_zi_dg',
       { airbnb: 'http://airbnb', traum: 'http://traum' },
       fetchText, now, prevByUrl,
     );
     expect(availability.stale).toBe(true);
-    expect(availability.busy).toEqual([{ from: '2026-07-01', to: '2026-07-12' }]);
-    // fresh airbnb data captured for next cycle, traum keeps last-good
+    // airbnb's fresh booking + traum's last-good, both kept (sorted)
+    expect(availability.bookings).toEqual([
+      { from: '2026-07-01', to: '2026-07-08' },
+      { from: '2026-08-01', to: '2026-08-05' },
+    ]);
     expect(byUrl['http://airbnb']).toEqual([{ from: '2026-07-01', to: '2026-07-08' }]);
-    expect(byUrl['http://traum']).toEqual([{ from: '2026-07-05', to: '2026-07-12' }]);
+    expect(byUrl['http://traum']).toEqual([{ from: '2026-08-01', to: '2026-08-05' }]);
   });
 });

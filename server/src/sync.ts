@@ -1,13 +1,15 @@
 import type { Availability, FeedUrls, Range } from './types.js';
 import { parseBusyRanges } from './ical.js';
-import { mergeRanges, clipRanges } from './merge.js';
+import { dedupeRanges, clipRanges } from './merge.js';
 import { windowStart, windowEnd } from './dates.js';
 
 export type FetchText = (url: string) => Promise<string>;
 
-/** Build merged availability for one apartment.
- *  On a feed failure, reuse that feed's last-good ranges from `prevByUrl`
- *  and mark the result stale. Returns the fresh per-feed ranges for caching. */
+/** Build availability for one apartment from its feeds.
+ *  Bookings are kept individual (deduped across feeds, NOT merged) so the UI can
+ *  render check-in/checkout half-days and same-day turnovers. On a feed failure,
+ *  reuse that feed's last-good ranges from `prevByUrl` and mark the result stale.
+ *  Returns the fresh per-feed ranges for caching. */
 export async function buildAvailability(
   apartmentId: string,
   feeds: FeedUrls,
@@ -33,9 +35,10 @@ export async function buildAvailability(
     }
   }
 
-  const busy = clipRanges(mergeRanges(collected), windowStart(now), windowEnd(now, 12));
+  const bookings = dedupeRanges(clipRanges(collected, windowStart(now), windowEnd(now, 12)))
+    .sort((a, b) => (a.from < b.from ? -1 : a.from > b.from ? 1 : a.to < b.to ? -1 : a.to > b.to ? 1 : 0));
   return {
-    availability: { apartmentId, updatedAt: now.toISOString(), stale, busy },
+    availability: { apartmentId, updatedAt: now.toISOString(), stale, bookings },
     byUrl,
   };
 }

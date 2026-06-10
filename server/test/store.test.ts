@@ -9,7 +9,7 @@ describe('snapshot store', () => {
     const path = join(tmpdir(), `zaucker-snap-${process.pid}.json`);
     const snap = {
       availability: {
-        '4_zi_dg': { apartmentId: '4_zi_dg', updatedAt: '2026-07-01T00:00:00.000Z', stale: false, busy: [{ from: '2026-07-01', to: '2026-07-08' }] },
+        '4_zi_dg': { apartmentId: '4_zi_dg', updatedAt: '2026-07-01T00:00:00.000Z', stale: false, bookings: [{ from: '2026-07-01', to: '2026-07-08' }] },
       },
       byUrl: { 'http://x': [{ from: '2026-07-01', to: '2026-07-08' }] },
     };

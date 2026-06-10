@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { buildMonths, isBooked } from './availability';
+import { buildMonths, dayState } from './availability';
 
 describe('buildMonths', () => {
   it('returns 12 month grids starting at the current month', () => {
@@ -13,16 +13,46 @@ describe('buildMonths', () => {
   });
 });
 
-describe('isBooked', () => {
-  const ranges = [{ from: '2026-07-01', to: '2026-07-08' }];
-  it('marks nights inside [from, to) booked', () => {
-    expect(isBooked('2026-07-01', ranges)).toBe(true);
-    expect(isBooked('2026-07-07', ranges)).toBe(true);
+describe('dayState — single booking [10, 15)', () => {
+  const b = [{ from: '2026-07-10', to: '2026-07-15' }];
+  it('check-in day (from) is afternoon-only', () => {
+    expect(dayState('2026-07-10', b)).toBe('checkin');
   });
-  it('leaves the checkout day (to) free', () => {
-    expect(isBooked('2026-07-08', ranges)).toBe(false);
+  it('interior nights are full', () => {
+    expect(dayState('2026-07-11', b)).toBe('full');
+    expect(dayState('2026-07-14', b)).toBe('full');
   });
-  it('leaves days outside any range free', () => {
-    expect(isBooked('2026-06-30', ranges)).toBe(false);
+  it('checkout day (to) is morning-only', () => {
+    expect(dayState('2026-07-15', b)).toBe('checkout');
+  });
+  it('days outside are free', () => {
+    expect(dayState('2026-07-09', b)).toBe('free');
+    expect(dayState('2026-07-16', b)).toBe('free');
+  });
+});
+
+describe('dayState — turnover (different guests, same day)', () => {
+  const b = [
+    { from: '2026-07-05', to: '2026-07-10' },
+    { from: '2026-07-10', to: '2026-07-15' },
+  ];
+  it('the shared day is a turnover (both halves, two guests)', () => {
+    expect(dayState('2026-07-10', b)).toBe('turnover');
+  });
+  it('surrounding interior days stay full', () => {
+    expect(dayState('2026-07-07', b)).toBe('full');
+    expect(dayState('2026-07-12', b)).toBe('full');
+  });
+  it('outer ends are checkin / checkout', () => {
+    expect(dayState('2026-07-05', b)).toBe('checkin');
+    expect(dayState('2026-07-15', b)).toBe('checkout');
+  });
+});
+
+describe('dayState — one-night booking [10, 11)', () => {
+  const b = [{ from: '2026-07-10', to: '2026-07-11' }];
+  it('is checkin on the night and checkout the next morning', () => {
+    expect(dayState('2026-07-10', b)).toBe('checkin');
+    expect(dayState('2026-07-11', b)).toBe('checkout');
   });
 });

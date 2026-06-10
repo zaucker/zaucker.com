@@ -1,5 +1,25 @@
 import { describe, it, expect } from 'vitest';
-import { mergeRanges, clipRanges } from '../src/merge.js';
+import { mergeRanges, clipRanges, dedupeRanges } from '../src/merge.js';
+
+describe('dedupeRanges', () => {
+  it('removes exact-duplicate ranges, preserving order', () => {
+    expect(dedupeRanges([
+      { from: '2026-07-01', to: '2026-07-08' },
+      { from: '2026-07-01', to: '2026-07-08' },
+      { from: '2026-07-10', to: '2026-07-12' },
+    ])).toEqual([
+      { from: '2026-07-01', to: '2026-07-08' },
+      { from: '2026-07-10', to: '2026-07-12' },
+    ]);
+  });
+
+  it('keeps ranges that share only an endpoint (a turnover)', () => {
+    expect(dedupeRanges([
+      { from: '2026-07-10', to: '2026-07-15' },
+      { from: '2026-07-15', to: '2026-07-20' },
+    ])).toHaveLength(2);
+  });
+});
 
 describe('mergeRanges', () => {
   it('merges overlapping ranges', () => {
